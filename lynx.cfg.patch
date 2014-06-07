@@ -1,0 +1,95 @@
+93c93
+< STARTFILE:http://lynx.isc.org/
+---
+> STARTFILE:http://www.bing.com/
+117c117
+< HELPFILE:http://lynx.isc.org/release/breakout/lynx_help/lynx_help_main.html
+---
+> #HELPFILE:http://lynx.isc.org/release/breakout/lynx_help/lynx_help_main.html
+119c119
+< #HELPFILE:file://localhost/PATH_TO/lynx_help/lynx_help_main.html
+---
+> HELPFILE:file://localhost/usr/share/doc/lynx/lynx_help/lynx_help_main.html
+291c291
+< #AUTO_SESSION:FALSE
+---
+> AUTO_SESSION:True
+308c308
+< #SESSION_FILE:lynx_session
+---
+> SESSION_FILE:~/.data/lynx.session
+800c800
+< #UNDERLINE_LINKS:FALSE
+---
+> UNDERLINE_LINKS:True
+809c809
+< #BOLD_HEADERS:FALSE
+---
+> BOLD_HEADERS:True
+1390c1390
+< #PERSISTENT_COOKIES:FALSE
+---
+> PERSISTENT_COOKIES:True
+1398c1398
+< #COOKIE_FILE:~/.lynx_cookies
+---
+> COOKIE_FILE:~/.data/lynx_cookies
+1567c1567
+< #DEFAULT_BOOKMARK_FILE:lynx_bookmarks.html
+---
+> DEFAULT_BOOKMARK_FILE:./.data/lynx_bookmarks.html
+1589c1589
+< #MULTI_BOOKMARK_SUPPORT:FALSE
+---
+> MULTI_BOOKMARK_SUPPORT:True
+1608c1608
+< #DEFAULT_USER_MODE:NOVICE
+---
+> DEFAULT_USER_MODE:ADVANCED
+1623c1623
+< #DEFAULT_EDITOR:
+---
+> DEFAULT_EDITOR:/usr/bin/vim
+1648a1649
+> POSITIONABLE_EDITOR:vim
+1837c1838
+< #NO_DOT_FILES:TRUE
+---
+> NO_DOT_FILES:False
+1849c1850
+< #NO_FROM_HEADER:TRUE
+---
+> NO_FROM_HEADER:False
+1895c1896
+< #REFERER_WITH_QUERY:DROP
+---
+> REFERER_WITH_QUERY:Partial
+1923c1924
+< #MAKE_LINKS_FOR_ALL_IMAGES:FALSE
+---
+> MAKE_LINKS_FOR_ALL_IMAGES:True
+1957c1958
+< #QUIT_DEFAULT_YES:TRUE
+---
+> QUIT_DEFAULT_YES:False
+2242a2244
+> SUFFIX:.pdf:application/pdf
+2333a2336,2341
+> VIEWER:image/png:fbv %s || sleep 5
+> VIEWER:image/jpg:fbv %s || sleep 5
+> VIEWER:image/jpeg:fbv %s || sleep 5
+> VIEWER:image/tiff:fbv %s || sleep 5
+> VIEWER:image/gif:fbv %s || sleep 5
+> VIEWER:application/pdf:fbpdf %s || sleep 5
+2369c2377
+< #PREFERRED_MEDIA_TYPES:internal
+---
+> PREFERRED_MEDIA_TYPES:ALL
+3337c3345
+< #CONNECT_TIMEOUT:18000
+---
+> CONNECT_TIMEOUT:60
+3341c3349
+< #READ_TIMEOUT:18000
+---
+> READ_TIMEOUT:60

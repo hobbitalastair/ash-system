@@ -1,0 +1,12 @@
+*** hosts.orig	2014-06-05 15:15:44.115994309 +1200
+--- hosts.new	2014-06-05 15:15:34.172362644 +1200
+***************
+*** 5,9 ****
+--- 5,11 ----
+  #<ip-address>	<hostname.domain.org>	<hostname>
+  127.0.0.1	localhost.localdomain	localhost
+  ::1		localhost.localdomain	localhost
++ 10.0.1.16	pc.localdomain		pc
++ 10.0.1.77	pi.localdomain		pi
+  
+  # End of file
