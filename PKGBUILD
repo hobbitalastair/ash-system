@@ -1,24 +1,27 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2
-pkgrel=3
+pkgver=0.2.1
+pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
 # Install needed packages
-depends=('fbset' 'fbpdf' 'fbv' 'git' 'ntp' 'sudo' 'vim' 'lynx' 'python' 
-         'ash-security' 'unison' 'less' 'patchman' 'unzip' 'alsa-utils'
-         'xdg-user-dirs')
+depends=('fbset' 'fbpdf' 'fbv' 'git' 'ntp' 'vim' 'lynx' 'python' 'ash-security'
+         'unison' 'less' 'patchman' 'unzip' 'alsa-utils' 'xdg-user-dirs')
 
 # Remove unwanted packages.
 conflicts=('nano' 's-nail' 'reiserfsprogs' 'xfsprogs' 'mdadm' 'lvm2' 'jfsutils')
 # Start the various services and add ash (the user)
-install=base.install
+install='install.sh'
 # Files to add
-source=('vim.config'
+source=( # New files
+        'vim.config'
         'cron.allow'
         'gitconfig'
         'terminal.sh'
+        '9-ash'
+
+        # Patches
         'lynx.cfg.patch'
         'hosts.patch'
        )
@@ -42,10 +45,15 @@ package() {
     mkdir "${pkgdir}/etc/profile.d"
     cp "${srcdir}/terminal.sh" "${pkgdir}/etc/profile.d/terminal.sh"
 
+    # Add the sudoers file for ash
+    mkdir -p "${pkgdir}/etc/sudoers.d"
+    install -Dm0440 "${srcdir}/9-ash" "${pkgdir}/etc/sudoers.d"
+
     # Add the patches
-    mkdir -p "${pkgdir}/usr/share/ash-base/"
-    cp "${srcdir}/lynx.cfg.patch" "${pkgdir}/usr/share/ash-base/"
-    cp "${srcdir}/hosts.patch" "${pkgdir}/usr/share/ash-base"
+    PATCHDIR="${pkgdir}/usr/share/ash-base"
+    mkdir -p "${PATCHDIR}"
+    cp "${srcdir}/lynx.cfg.patch" "${PATCHDIR}"
+    cp "${srcdir}/hosts.patch" "${PATCHDIR}"
 }
 
 md5sums=('16086a76c0267dcbc6826bb64160d0ef'

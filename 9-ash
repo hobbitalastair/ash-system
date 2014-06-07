@@ -1,0 +1,3 @@
+# Sudoers file for ash
+
+ash ALL = NOPASSWD: ADMIN, PASSWD: SYSADMIN, ALL

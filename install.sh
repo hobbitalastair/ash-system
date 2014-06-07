@@ -10,17 +10,21 @@
 # - Symlink in NZ as the timezone
 # - Locale generation
 # - Password setting for root and ash
+# - Patches for various files
 # 
 #
 # Uninstalling should reverse everything.
 # The ash home dir will be kept, however
 #
-# Last modified: 24-4-2014
+# Last modified: 8-6-2014
 #
 ###############################################################################
 
 export TIMEZONE="Pacific/Auckland"
 export NEW_LANG="en_NZ.UTF-8"
+
+# Dir where the patches are stored
+PATCHDIR="/usr/share/ash-base"
 
 # arg 1:  the new package version
 post_install() {
@@ -81,6 +85,15 @@ post_install() {
         echo ":: Reminder: Add a bootloader!"
     fi
 
+    # Patches
+    patchman -A "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck && \
+        echo '   Patched /etc/lynx.cfg' || \
+        echo '-> Patching /etc/lynx.cfg failed!'
+
+    patchman -A "/etc/hosts" "${PATCHDIR}/hosts.patch" --nocheck && \
+        echo '   Patched /etc/hosts' || \
+        echo '-> Patching /etc/hosts failed!'
+
 }
 
 ## arg 1:  the new package version
@@ -99,25 +112,22 @@ pre_upgrade() {
 ## arg 2:  the old package version
 post_upgrade() {
 
-    ASH_BASE_PATCHDIR="/usr/share/ash-base"
-
     # Lynx config patch
     if [ $(vercmp $2 0.1-14) -lt 1 ]; then
-        patchman -A "/etc/lynx.cfg" "${ASH_BASE_PATCHDIR}/lynx.cfg.patch" \
-                 --nocheck
+        patchman -A "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck &&
+            echo '   Patched /etc/lynx.cfg' || \
+            echo '-> Patching /etc/lynx.cfg failed!'
     else
-        patchman -U "/etc/lynx.cfg" "${ASH_BASE_PATCHDIR}/lynx.cfg.patch" \
-                 --nocheck
+        patchman -U "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck
     fi
 
     # Hostnames patch (TODO: Implement a DNS server)
     if [ $(vercmp $2 0.2-2) -lt 1 ]; then
-        patchman -A "/etc/hosts" "${ASH_BASE_PATCHDIR}/hosts.patch" \
-                 --nocheck || \
+        patchman -A "/etc/hosts" "${PATCHDIR}/hosts.patch" --nocheck && \
+            echo "   Patched /etc/hosts" || \
             echo "-> Patching /etc/hosts failed!"
     else
-        patchman -U "/etc/hosts" "${ASH_BASE_PATCHDIR}/hosts.patch" \
-                 --nocheck
+        patchman -U "/etc/hosts" "${PATCHDIR}/hosts.patch" --nocheck
     fi
 
 }
@@ -156,5 +166,15 @@ pre_remove() {
     sed -i -e "s:$NEW_LANG UTF-8:#$NEW_LANG UTF-8:" /etc/locale.gen && \
         echo "   Recommented $NEW_LANG in /etc/locale.gen" || \
         echo "-> Failed to recomment $NEW_LANG in /etc/locale.gen"
+
+    # Removing the patches
+    patchman -R "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck && \
+        echo '   Unpatched /etc/lynx.cfg' || \
+        echo '-> Unpatching /etc/lynx.cfg failed!'
+
+    patchman -R "/etc/hosts" "${PATCHDIR}/hosts.patch" --nocheck && \
+        echo '   Unpatched /etc/hosts' || \
+        echo '-> Unpatching /etc/hosts failed!'
+
 }
 
