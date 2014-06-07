@@ -1,0 +1,322 @@
+########################
+# FVWM config, 20-4-2014
+#
+# See http://zensites.net/fvwm/guide/index.html for a very good introduction
+#
+# Syntax elements:
+#
+# Styles are comma seperated 'styles'
+#
+# Colourset syntax:
+# Colourset <num> <type> <value> [ , <type> <value>]
+# <num>     - Any num
+# <type>    - One of fg, bg, sh, hi
+# <value>   - Colourset (?) | Black | White | ?
+# 
+# Button syntax:
+# ButtonStyle <button_num> <state> <icon> [-- Flat]
+# <button_num>	- Button's number for bindings
+# <state>	- ActiveUp | ActiveDown | Inactive 
+# <icon> 	- <vector> | <pixmap>
+# <vector> 	- Vector <number of vectors> <line>
+# <line>	- <x_num>x<y_num>@<color>
+# <color>	- 0: sh, 1: hi, 2: bg, 3: fg
+#
+#########################
+
+#TODO: Add copy/paste
+#TODO: Add applications - Automated detection and display?
+
+### Setup ###
+
+###############
+# Env variables
+###############
+# Icons!
+SetEnv fvwm_icons_oxygen /usr/share/icons/oxygen/22x22
+SetEnv fvwm_icons_hi /usr/share/icons/hicolor/22x22
+SetEnv fvwm_pixmaps /usr/share/pixmaps
+
+#####################
+# Set image locations
+# This is where FVWM will look for images in
+#####################
+ImagePath $[fvwm_icons_oxygen]:$[fvwm_icons_oxygen];.png:\
+          /usr/share/ash-desktop/images:/usr/share/ash-desktop/images;.png:\
+          $[fvwm_icons_hi]:$[fvwm_icons_hi];.png:\
+          $[fvwm_pixmaps]:$[fvwm_pixmaps];.png:+
+
+### Desktop setups ###
+
+#TODO: Move toolbar here?
+
+##########
+# Desktops
+# Set to none at the moment
+##########
+DesktopSize 1x1
+EdgeScroll 0 0
+EdgeResistance 0
+EdgeThickness 0
+
+#########################
+# Usable area for windows
+# This applies when maximising
+# left, right, top, bottom
+# These are the pixel widths to not use for windows, in essence
+#########################
+EwmhBaseStruts 0 0 0 1
+
+
+### Input ###
+
+###########################
+# Mouse and focus behaviour
+###########################
+ClickTime 350
+MoveThreshold 3
+Style "*" SloppyFocus, MouseFocusClicksRaises
+
+################
+# Mouse bindings
+# In format: 
+# <type> <key> <context> <modifier> <action>
+#
+# <type>    - Mouse | Key
+# <key>     - Mouse button (1-3) or key
+# <context> - Where the event happened
+#   R - root window
+#   I - Icon
+#   F - frame corners
+#   S - frame sides
+#   T - title bar
+#   W - application window
+#   0-9 - buttons (window buttons?)
+#   A - anywhere
+# <modifier>- Modifier key
+#   A - Any
+#   S - Shift
+#   C - Control
+#   M - meta
+#   N - nothing
+# <action>  - Function to use
+################
+Mouse 1 R N Nop 
+Mouse 1 2 A FvwmDeleteOrDestroy
+Mouse 1 4 A FvwmIconifyOrShade
+Mouse 1 6 A FvwmMaximize 100 100
+
+
+### Program specific styling ###
+
+################
+# Program styles
+###############
+Style "*" Icon "mimetypes/unknown.png"
+Style "*Term" Icon "apps/utilities-terminal.png"
+Style "Chromium" Icon "apps/chromium.png", !Title
+Style "Kerbal Space Program" !Title
+Style "Blender" Icon "apps/blender.png"
+
+
+### Functions ###
+
+###########
+# Functions
+# Syntax:
+# DestroyFunc <funcname>
+# AddToFunc <funcname>
+# + I (Immediate action
+# + C (Mouse click action)
+# + D (Double mouse click action)
+# + H (Mouse held action)
+# + M (Mouse motion action)
+##########
+DestroyFunc 	FvwmDeleteOrDestroy
+AddToFunc 	FvwmDeleteOrDestroy'
++ H Nop
++ M Nop
++ C Delete
++ D Destroy
+DestroyFunc 	FvwmIconifyOrShade
+AddToFunc 	FvwmIconifyOrShade
++ C Iconify
++ D WindowShade
+DestroyFunc	FvwmMaximize
+AddToFunc 	FvwmMaximize
++ H Nop
++ M Nop
++ C Maximize $0 $1
+DestroyFunc 	FvwmMoveOrIconify
+AddToFunc 	FvwmMoveOrIconfiy
++ M Move
++ D Iconify
+DestoryFunc	FvwmWindowShade
+AddToFunc	FvwmWindowShade
++D WindowShade $0
+
+# Special functions
+DestroyFunc 	StartFunction
+AddToFunc	StartFunction
++ I Module FvwmTaskBar
+DestroyFunc 	InitFunction
+AddToFunc	InitFunction
++ I Exec exec fvwm-root -r $[FVWM_DESKTOP]
+DestroyFunc	RestartFunction
+AddToFunc	RestartFunction
++ I Nop
+
+
+### Windows ###
+
+###################
+# Window colourset
+# Inactive window: 1
+# Active window: 2
+###################
+# Borders use window colours
+# 3: Inactive borders
+# 4: Active borders
+Colorset 1 fg Black, bg LightBlue
+Colorset 2 fg White, bg DarkGreen
+
+###############
+# Window styles
+###############
+# Window handling:
+Style "*" TileCascadePlacement
+Style "*" BorderWidth 1, HandleWidth 3
+Style "*" SnapAttraction 20 SameType Screen
+
+# Window decor related:
+Style "*" UseDecor WindowDecor
+Style "*" Font "xft:Sans:Bold:size=10:minspace=False:antialias=True"
+Style "*" MWMBorder, FirmBorder
+Style "*" Colorset 1
+Style "*" HilightColorset 2
+Style "*" BorderColorset 1
+Style "*" HilightBorderColorset 2
+
+
+##############
+# Window decor
+# Buttons are placed:
+# 13579 Title 08642
+##############
+DestroyDecor 	WindowDecor
+AddToDecor   	WindowDecor
++ TitleStyle LeftJustified Height 18
+# Button 2: Close
++ ButtonStyle 2 ActiveUp Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
++ ButtonStyle 2 ActiveDown Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
++ ButtonStyle 2 Inactive Vector 4 30x30@3 60x60@3 60x30@4 30x60@3 -- Flat
+# Button 4: Iconise
++ ButtonStyle 4 ActiveUp Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
++ ButtonStyle 4 ActiveDown Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
++ ButtonStyle 4 Inactive Vector 5 30x60@3 60x60@3 60x50@3 30x50@3 30x60@3 -- Flat
+# Button 6: Maximize
++ ButtonStyle 6 ActiveUp Vector 4 30x44@3 63x44@3 45x27@4 45x60@3 -- Flat
++ ButtonStyle 6 ActiveDown Vector 4 30x45@3 60x45@3 45x30@4 45x60@3 -- Flat
++ ButtonStyle 6 Inactive Vector 4 30x45@3 60x45@3 45x30@4 45x60@3 -- Flat
++ TitleStyle -- Flat
++ BorderStyle Simple -- NoInset Flat
++ ButtonStyle All -- UseTitleStyle
+
+
+### Menus ###
+
+################
+# Menu Colorsets
+################
+# Blank, using window colours
+# 5: Inactive menu item
+# 6: Active menu item
+# 7: Greyed menu item
+Colorset 5 fg White, bg DarkGreen
+Colorset 6 fg LightBlue, bg DarkGreen
+Colorset 7 fg Grey, bg LightGrey
+
+#####
+# MenuStyles
+###########
+MenuStyle * PopupDelayed, PopupDelay 300, PopdownImmediately
+MenuStyle * PopupOffset -5 100, TitleWarpOff
+MenuStyle * TitleUnderlines2, SeparatorsLong, TrianglesSolid
+MenuStyle * AnimationOff, AutomaticHotkeysOff
+MenuStyle * BorderWidth 2
+MenuStyle * PopupAsSubmenu, HoldSubmenus, SubmenusRight
+MenuStyle * ItemFormat "%|%5.5i%1.3l%2.3>%|"
+MenuStyle * VerticalItemSpacing 1 1, VerticalTitleSpacing 2 2
+MenuStyle * MenuColorset 5
+MenuStyle * ActiveFore, Hilight3DOff
+MenuStyle * ActiveColorset 6
+MenuStyle * Font "xft:Sans:Bold:size=8:antialias=True"
+MenuStyle * Simple -- NoInset Flat
+
+##############
+# FvwmRootMenu
+# The basic menu item format is '+ "[item name]%[icon]%" [action]'
+##############
+DestroyMenu FvwmRootMenu
+AddToMenu   FvwmRootMenu
++ "Programs%menu/programs.png%"  Popup FvwmProgramsMenu
++ "Chromium%apps/chromium.png%" exec chromium
++ "Blender%apps/blender.png%" exec blender
++ "Terminal%apps/utilities-terminal.png%" exec xterm
++ "Quit%actions/system-shutdown.png%"  Quit
+
+###############
+# Programs Menu
+###############
+DestroyMenu FvwmProgramsMenu
+AddToMenu   FvwmProgramsMenu
++ "KSP" exec cd /opt/ksp && ./KSP.x86_64
+
+
+################
+# Window op menu
+################
+DestroyMenu  	FvwmWindowOpsMenu
+AddToMenu	FvwmWindowOpsMenu
++ "Close" Close
++ "Force Quit" Destroy
+
+
+### Modules ###
+
+##################
+# Module Colorsets
+##################
+# Blank, using window coloursets
+# 5: Inactive menu item
+# 6: Active menu item
+# 7: Greyed menu item
+
+############
+# FvwmTaskBar
+#############
+Style "FvwmTaskBar" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, \
+  CirculateSkip, StaysOnTop, FixedPosition, FixedSize, !Iconifiable
+
+DestroyModuleConfig FvwmTaskBar: *
+*FvwmTaskBar: Geometry +0-0
+*FvwmTaskBar: Rows 1
+*FvwmTaskBar: AutoHide 1
+*FvwmTaskBar: Font "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
+*FvwmTaskBar: SelFont "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
+*FvwmTaskBar: StatusFont "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
+*FvwmTaskBar: Colorset 5
+*FvwmTaskBar: IconColorset 6
+*FvwmTaskBar: FocusColorset 5
+*FvwmTaskBar: TipsColorset 5
+*FvwmTaskBar: UseSkipList
+*FvwmTaskBar: UseIconNames
+*FvwmTaskBar: WindowButtonsLeftMargin 0
+*FvwmTaskBar: Pad 0
+# Blank start name...
+*FvwmTaskBar: StartName 
+*FvwmTaskBar: StartMenu FvwmRootMenu
+*FvwmTaskBar: Action Click3 Menu FvwmWindowOpsMenu
+*FvwmTaskBar: Action Click2 Iconify
+*FvwmTaskBar: StartIcon arch_icon.png
+
