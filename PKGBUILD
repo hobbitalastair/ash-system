@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.2
-pkgrel=2
+pkgver=0.2.3
+pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -16,8 +16,6 @@ install='install.sh'
 # Files to add
 source=( # New files
         'vim.config'
-        'cron.allow'
-        'gitconfig'
         'terminal.sh'
         'sudoers.ash'
 
@@ -33,11 +31,6 @@ package() {
     # Add vim's config
     mkdir -p "${pkgdir}/etc"
     cp "${srcdir}/vim.config" "${pkgdir}/etc/vim.conf"
-
-    # Add cron.allow
-    cp "${srcdir}/cron.allow" "${pkgdir}/etc/cron.allow"
-    # Make non-writable
-    chmod a-wx "${pkgdir}/etc/cron.allow"
 
     # Add gitconfig
     cp "${srcdir}/gitconfig" "${pkgdir}/etc/gitconfig"
