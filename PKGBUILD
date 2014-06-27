@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
 pkgver=0.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -18,6 +18,7 @@ source=( # New files
         'vim.config'
         'terminal.sh'
         'sudoers.ash'
+        'gitconfig'
 
         # Patches
         'lynx.cfg.patch'
@@ -52,9 +53,8 @@ package() {
 }
 
 md5sums=('16086a76c0267dcbc6826bb64160d0ef'
-         '4fe8b88e09e2bc93d8835250bca2e776'
-         'bd4da5f2283ef3284ce21e55faee1b51'
-         'a34a7677f6b5301996a25141ab1d2e4c'
+         '9fc932e50f36606be1b549b08de6cb97'
          '9ab88e97da626fd04501ad1c486deed9'
+         'bd4da5f2283ef3284ce21e55faee1b51'
          '97d008f19c0db4bf39ae6b98f51730cd'
          '63f2c9b04548e5a881b9b259a34f5ce9')
