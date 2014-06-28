@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.3
-pkgrel=2
+pkgver=0.2.5
+pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -22,7 +22,7 @@ source=( # New files
 
         # Patches
         'lynx.cfg.patch'
-        'hosts.patch'
+        'hosts.file'
        )
 backup=("etc/sudoers.d/ash-base")
 
@@ -49,7 +49,7 @@ package() {
     PATCHDIR="${pkgdir}/usr/share/ash-base"
     mkdir -p "${PATCHDIR}"
     cp "${srcdir}/lynx.cfg.patch" "${PATCHDIR}"
-    cp "${srcdir}/hosts.patch" "${PATCHDIR}"
+    cp "${srcdir}/hosts.file" "${PATCHDIR}/hosts.file"
 }
 
 md5sums=('16086a76c0267dcbc6826bb64160d0ef'

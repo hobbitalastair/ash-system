@@ -28,7 +28,7 @@ PATCHDIR="/usr/share/ash-base"
 
 # arg 1:  the new package version
 post_install() {
-    echo "-> Setting up the base system with a TZ of $TIMEZONE and a " \
+    echo "-> Setting up the base system with a TZ of $TIMEZONE and a "\
             "lang of $NEW_LANG"
     # Add the ash user
     # First, check wether the user already exists
@@ -62,17 +62,9 @@ post_install() {
     echo "-> New ash passwd:"
     passwd ash
     
-    # Enable cron
-    systemctl enable cronie && \
-        echo "   cronie enabled" || echo "-> Failed to enable cronie!"
-
     # Enable ntp
     systemctl enable ntpd && \
         echo "   ntpd enabled" || echo "-> Failed to enble ntpd!"
-
-    # Enable syslog-ng
-    systemctl enable syslog-ng && \
-        echo "   syslog-ng enabled" || echo "-> Failed to enable syslog-ng!"
 
     # Enable dhcpcd
     systemctl enable dhcpcd && \
@@ -90,7 +82,7 @@ post_install() {
         echo '   Patched /etc/lynx.cfg' || \
         echo '-> Patching /etc/lynx.cfg failed!'
 
-    patchman -A "/etc/hosts" "${PATCHDIR}/hosts.patch" --nocheck && \
+    patchman -A "/etc/hosts" "${PATCHDIR}/hosts.file" --nocheck && \
         echo '   Patched /etc/hosts' || \
         echo '-> Patching /etc/hosts failed!'
 
@@ -106,6 +98,13 @@ pre_upgrade() {
             echo "-> Failed to disable syslog-ng!"
         echo ":: Reminder: Remove syslog-ng and logrotate!"
     fi
+
+    # Remove the old hostnames patch
+    if [ $(vercmp $2 0.2.4) -lt 1 ]; then
+        patchman -R "/etc/hosts" "${PATCHDIR}/hosts.patch" --nocheck && \
+            echo '   Unpatched /etc/hosts' || \
+            echo '-> Unpatching /etc/hosts failed!'
+    fi
 }
 
 ## arg 1:  the new package version
@@ -114,7 +113,7 @@ post_upgrade() {
 
     # Lynx config patch
     if [ $(vercmp $2 0.1-14) -lt 1 ]; then
-        patchman -A "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck &&
+        patchman -A "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck && \
             echo '   Patched /etc/lynx.cfg' || \
             echo '-> Patching /etc/lynx.cfg failed!'
     else
@@ -122,12 +121,12 @@ post_upgrade() {
     fi
 
     # Hostnames patch (TODO: Implement a DNS server)
-    if [ $(vercmp $2 0.2-2) -lt 1 ]; then
-        patchman -A "/etc/hosts" "${PATCHDIR}/hosts.patch" --nocheck && \
+    if [ $(vercmp $2 0.2.4) -lt 1 ]; then
+        patchman -A "/etc/hosts" "${PATCHDIR}/hosts.file" --nocheck && \
             echo "   Patched /etc/hosts" || \
             echo "-> Patching /etc/hosts failed!"
     else
-        patchman -U "/etc/hosts" "${PATCHDIR}/hosts.patch" --nocheck
+        patchman -U "/etc/hosts" "${PATCHDIR}/hosts.file" --nocheck
     fi
 
 }
@@ -172,7 +171,7 @@ pre_remove() {
         echo '   Unpatched /etc/lynx.cfg' || \
         echo '-> Unpatching /etc/lynx.cfg failed!'
 
-    patchman -R "/etc/hosts" "${PATCHDIR}/hosts.patch" --nocheck && \
+    patchman -R "/etc/hosts" "${PATCHDIR}/hosts.file" --nocheck && \
         echo '   Unpatched /etc/hosts' || \
         echo '-> Unpatching /etc/hosts failed!'
 
