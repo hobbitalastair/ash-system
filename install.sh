@@ -37,6 +37,9 @@ post_install() {
     else
         useradd ash -m -G video -c "Alastair Hughes" -U && \
             echo "   Added user 'ash'" || echo "-> Failed to add user 'ash'!"
+        # Update permissions on /home/ash
+        chown ash -R /home/ash && chgrp ash -R /home/ash ||
+            echo "-> Failed to update permissions on /home/ash!"
     fi
 
     # Symlink in the timezone
@@ -91,14 +94,6 @@ post_install() {
 ## arg 1:  the new package version
 ## arg 2:  the old package version
 pre_upgrade() {
-    if [ $(vercmp $2 0.1-15) -lt 1 ]; then
-        # Disable syslog-ng
-        systemctl disable syslog-ng && \
-            echo "   syslog-ng disabled - use journalctl" || \
-            echo "-> Failed to disable syslog-ng!"
-        echo ":: Reminder: Remove syslog-ng and logrotate!"
-    fi
-
     # Remove the old hostnames patch
     if [ $(vercmp $2 0.2.4) -lt 1 ]; then
         patchman -R "/etc/hosts" "${PATCHDIR}/hosts.patch" --nocheck && \
@@ -137,19 +132,10 @@ pre_remove() {
     # Remove ash
     userdel ash && \
         echo "   User 'ash' removed" || echo "-> Failed to delete user 'ash'"
-    echo "   Remove ash's home directory at will"
 
-    # Disable cron
-    systemctl disable cronie && \
-        echo "   cronie disabled" || echo "-> Failed to disable cronie!"
-    
     # Disable ntp
     systemctl disable ntpd && \
         echo "   ntpd disabled" || echo "-> Failed to disable ntpd!"
-
-    # Disable syslog-ng
-    systemctl disable syslog-ng && \
-        echo "   syslog-ng disabled" || echo "-> Failed to disable syslog-ng!"
 
     # Disable dhcpcd
     systemctl disable dhcpcd && \
