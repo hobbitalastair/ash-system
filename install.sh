@@ -124,6 +124,9 @@ post_upgrade() {
         patchman -U "/etc/hosts" "${PATCHDIR}/hosts.file" --nocheck
     fi
 
+    # Set the owner of some files in ash to ash
+    chown ash /home/ash
+    chown ash /home/ash/.config/unison/home.prf
 }
 
 # arg 1:  the old package version

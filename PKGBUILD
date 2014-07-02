@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.5
-pkgrel=3
+pkgver=0.2.7
+pkgrel=5
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -15,14 +15,15 @@ conflicts=('nano' 's-nail')
 install='install.sh'
 # Files to add
 source=( # New files
-        'vim.config'
-        'terminal.sh'
-        'sudoers.ash'
-        'gitconfig'
+        'vim.config'    # Global vim config
+        'terminal.sh'   # Env variables and alias for ash
+        'sudoers.ash'   # Sudoers config for ash
+        'gitconfig'     # Global git config
+        'unison.ash'    # Unison preference file
 
         # Patches
-        'lynx.cfg.patch'
-        'hosts.file'
+        'lynx.cfg.patch'    # Lynx config patch
+        'hosts.file'        # Known hostnames 
        )
 backup=("etc/sudoers.d/ash-base")
 
@@ -36,7 +37,8 @@ package() {
     install -Dm0644 "${srcdir}/gitconfig" "${pkgdir}/etc/gitconfig"
 
     # Add the default profile file
-    install -Dm0770 "${srcdir}/terminal.sh" "${pkgdir}/etc/profile.d/terminal.sh"
+    install -Dm0774 "${srcdir}/terminal.sh" \
+                    "${pkgdir}/etc/profile.d/terminal.sh"
 
     # Add the sudoers file for ash
     install -dm0750 "${pkgdir}/etc/sudoers.d"
@@ -44,6 +46,11 @@ package() {
 
     # Add ash's home directory
     install -dm0660 "${pkgdir}/home/ash"
+
+    # Add the unison config
+    install -Dm0660 "${srcdir}/unison.ash" \
+                    "${pkgdir}/home/ash/.config/unison/home.prf" 
+    chmod 0660 -R "${pkgdir}/home/ash" # Fix some conflicts (?)
 
     # Add the patches
     PATCHDIR="${pkgdir}/usr/share/ash-base"
@@ -53,8 +60,9 @@ package() {
 }
 
 md5sums=('16086a76c0267dcbc6826bb64160d0ef'
-         '9fc932e50f36606be1b549b08de6cb97'
+         '038dddad122387df51b45a59c2602ec9'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
+         '6a07ebbe68a5ab166b8bd4e0f21b6d6e'
          '97d008f19c0db4bf39ae6b98f51730cd'
          '54e883e5f0d051f27508a6efa141182b')

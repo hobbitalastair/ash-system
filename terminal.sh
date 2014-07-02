@@ -1,4 +1,5 @@
-# Terminal profile file; written by Alastair Hughes <hobbitalastair@gmail.com> 25-2-2014
+# Terminal profile file
+# Author: Alastair Hughes <hobbitalastair at yandex dot com>
 
 # Base directory specifications
 export XDG_DATA_HOME="$HOME/.data"
@@ -28,8 +29,13 @@ export PYTHONDONTWRITEBYTECODE="True"
 export HISTFILE="$XDG_DATA_HOME/bash.history"
 export LESSHISTFILE="$XDG_DATA_HOME/less.history"
 export TZ='Pacific/Auckland'
+export UNISON="$XDG_CONFIG_HOME/unison"
 
 # Are these in the right place?
 #TODO: Move to a non-terminal file?
 export GIT_DIR=".git"
+
+# Start the ssh agent
+# This provides the keys for ssh connections using them (no password required)
+eval $(ssh-agent -s) > /dev/null
 
