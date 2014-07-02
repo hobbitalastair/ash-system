@@ -35,7 +35,7 @@ post_install() {
     if [ $(cat /etc/passwd | grep -e ^ash) ]; then
         echo "   User ash exists - leaving"
     else
-        useradd ash -m -G video -c "Alastair Hughes" -U && \
+        useradd ash -M -G video -c "Alastair Hughes" -U && \
             echo "   Added user 'ash'" || echo "-> Failed to add user 'ash'!"
         # Update permissions on /home/ash
         chown ash -R /home/ash && chgrp ash -R /home/ash ||
