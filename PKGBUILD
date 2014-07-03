@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.7
-pkgrel=5
+pkgver=0.2.8
+pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -53,10 +53,10 @@ package() {
     chmod 0660 -R "${pkgdir}/home/ash" # Fix some conflicts (?)
 
     # Add the patches
-    PATCHDIR="${pkgdir}/usr/share/ash-base"
-    install -dm0660 "${PATCHDIR}"
-    cp "${srcdir}/lynx.cfg.patch" "${PATCHDIR}"
-    cp "${srcdir}/hosts.file" "${PATCHDIR}/hosts.file"
+    _PATCHDIR="${pkgdir}/usr/share/ash-base"
+    install -dm0660 "${_PATCHDIR}"
+    cp "${srcdir}/lynx.cfg.patch" "${_PATCHDIR}"
+    cp "${srcdir}/hosts.file" "${_PATCHDIR}/hosts.file"
 }
 
 md5sums=('16086a76c0267dcbc6826bb64160d0ef'
