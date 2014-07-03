@@ -17,6 +17,7 @@ alias lynx="lynx -book -accept_all_cookies"
 alias vim="vim -u /etc/vim.conf -i $XDG_DATA_HOME/vim.info"
 # Programming applications alias - Move?
 alias pylint="pylint --rcfile=/etc/pylint.config"
+alias unison="unison -logfile ${XDG_CACHE_HOME}/unison.log"
 
 # Environment variables
 export EDITOR="/usr/bin/vim"
