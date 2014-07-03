@@ -1,14 +1,14 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.9
-pkgrel=7
+pkgver=0.2.10
+pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
 # Install needed packages
 depends=('fbset' 'fbpdf' 'fbv' 'git' 'ntp' 'vim' 'lynx' 'python' 'ash-security'
          'unison' 'less' 'patchman' 'unzip' 'alsa-utils' 'xdg-user-dirs'
-         'openssh')
+         'openssh' 'keychain')
 
 # Remove unwanted packages.
 conflicts=('nano' 's-nail')
@@ -61,9 +61,9 @@ package() {
 }
 
 md5sums=('16086a76c0267dcbc6826bb64160d0ef'
-         'ba2dc475fd24c0e390aa26ca371172da'
+         'e93e219587aef11ed68c6022bb4918de'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
-         '1138b609f8da3c1844b16d945e5b92f2'
+         '207079e07d16df6ecc23c40a502c1e2d'
          '97d008f19c0db4bf39ae6b98f51730cd'
-         '54e883e5f0d051f27508a6efa141182b')
+         '99f00d3c016314e040beaa4f4c36c8db')

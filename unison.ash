@@ -7,10 +7,26 @@
 # Date: 7-2-2014
 ###############################################################################
 
+#
+# Misc
+#
+
+# Label
+label = "Synchronise the hosts's /home/ash directory with another root"
 
 # Add one root only...
 # The other is specified on the command line as a ssh->
 root = /home/ash
+
+# Automatically sync
+# This is not batch mode - that will have to be added in the command args
+auto = true
+terse = true
+# Follow symlinks
+follow = Name *
+# Sync permissions
+group = true
+owner = true
 
 
 #
@@ -50,6 +66,7 @@ ignore = Name *.o
 # Merging
 #
 
+# Merge command and spec
 merge = Name * -> diff3 -3 -m CURRENT1 CURRENTARCH CURRENT2 > NEW
 
 
@@ -69,8 +86,11 @@ backupsuffix = .backup
 # Keep backups of current files (for merging using diff3
 backupcurrent = Name *
 
+# Backup these paths
 backup = Path documents
 backup = Path uc
 backup = Path python
 backup = Path c
+# Do not back up git directories
+backupnot = BelowPath .git
 
