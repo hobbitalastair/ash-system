@@ -1,13 +1,13 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-desktop
 pkgver=0.3
-pkgrel=15
+pkgrel=16
 pkgdesc="Basic desktop setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
 # Install needed packages
 depends=('xorg-server' 'xorg-xinit' 'fvwm' 'chromium' 'gnome-themes-standard'
-         'oxygen-icons' 'xterm')
+         'oxygen-icons' 'xterm' 'xclip')
 optdepends=('xf86-video-fb: Basic X desktop driver'
             'xf86-video-intel: Graphics acceleration for x86 intel graphics'
             'libva-intel-driver: Video playback acceleration for x86 intel graphics')
@@ -21,27 +21,25 @@ install='install.sh'
 
 package() {
     cd "${srcdir}"
+
     # Wallpaper for the desktop and the start icon
-    mkdir -p "${pkgdir}/usr/share/ash-desktop/images"
-    cp "${srcdir}/arch_wallpaper.png" "${pkgdir}/usr/share/ash-desktop/images/arch_wallpaper.png"
-    cp "${srcdir}/arch_icon.png" "${pkgdir}/usr/share/ash-desktop/images/arch_icon.png"
+    install -Dm0664 "${srcdir}/arch_wallpaper.png" \
+                    "${pkgdir}/usr/share/ash-desktop/images/arch_wallpaper.png"
+    install -Dm0664 "${srcdir}/arch_icon.png" \
+                    "${pkgdir}/usr/share/ash-desktop/images/arch_icon.png"
+
     # Fvwm config
-    mkdir -p "${pkgdir}/etc/fvwm"
-    cp -p "${srcdir}/fvwm-config" "${pkgdir}/etc/fvwm/config"
+    install -Dm0664 "${srcdir}/fvwm-config" "${pkgdir}/etc/fvwm/config"
+
     # Global GTK config
-    mkdir -p "${pkgdir}/etc/gtk-2.0"
-    cp "${srcdir}/gtkrc-2" "${pkgdir}/etc/gtk-2.0/gtkrc"
+    install -Dm0664 "${srcdir}/gtkrc-2" "${pkgdir}/etc/gtk-2.0/gtkrc"
+
     # Desktop related variables
-    mkdir -p "${pkgdir}/etc/profile.d/"
-    cp "${srcdir}/desktop.sh" "${pkgdir}/etc/profile.d/desktop.sh"
+    install -Dm0664 "${srcdir}/desktop.sh" "${pkgdir}/etc/profile.d/desktop.sh"
 
     # Patch location
-    PATCHDIR="${pkgdir}/usr/share/ash-desktop"
-    mkdir -p "${PATCHDIR}"
-
-    # Patch for xinitrc
-    mkdir -p "${pkgdir}/etc/X11/xinit/"
-    cp "${srcdir}/xinitrc.file" "${PATCHDIR}"
+    _PATCHDIR="${pkgdir}/usr/share/ash-desktop"
+    install -Dm0660 "${srcdir}/xinitrc.file" "${_PATCHDIR}"
 }
 
 md5sums=('d3dd6ace54f482c61a9973f25d2c2e74'
