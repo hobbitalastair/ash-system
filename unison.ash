@@ -42,3 +42,35 @@ ignore = Path .config/chromium
 # Ignore any files in Unison's storage directory
 ignore = Path .config/unison
 
+# Ignore any object files
+ignore = Name *.o
+
+
+# 
+# Merging
+#
+
+merge = Name * -> diff3 -3 -m CURRENT1 CURRENTARCH CURRENT2 > NEW
+
+
+#
+# Backups
+#
+
+# Hold the backups in one spot
+backuplocation = central
+backupdir = /home/ash/.config/unison/backups
+# Maximum of 5 backups of each file
+maxbackups = 5
+# Naming of the backup ($VERSION.<file>.backup)
+backupprefix = $VERSION.
+backupsuffix = .backup
+
+# Keep backups of current files (for merging using diff3
+backupcurrent = Name *
+
+backup = Path documents
+backup = Path uc
+backup = Path python
+backup = Path c
+

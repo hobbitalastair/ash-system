@@ -89,6 +89,10 @@ post_install() {
         echo '   Patched /etc/hosts' || \
         echo '-> Patching /etc/hosts failed!'
 
+    chown ash /home/ash
+    chgrp ash /home/ash
+    chown ash /home/ash/.config/unison/home.prf
+    chgrp ash /home/ash/.config/unison/home.prf
 }
 
 ## arg 1:  the new package version
@@ -124,9 +128,11 @@ post_upgrade() {
         patchman -U "/etc/hosts" "${PATCHDIR}/hosts.file" --nocheck
     fi
 
-    # Set the owner of some files in ash to ash
+    # Set the owner the files in ash to ash
     chown ash /home/ash
+    chgrp ash /home/ash
     chown ash /home/ash/.config/unison/home.prf
+    chgrp ash /home/ash/.config/unison/home.prf
 }
 
 # arg 1:  the old package version
