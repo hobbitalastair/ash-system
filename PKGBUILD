@@ -1,14 +1,14 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.13
-pkgrel=7
+pkgver=0.2.14
+pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
 # Install needed packages
 depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
          'vim' 'lynx' 'less' 'git' 'openssh' 'sudo' 'alsa-utils' 'unzip' 
-         # Userspace tools
+         'keychain' # Userspace tools
          'immix' 'ntp' # Automation of some tasks
          'xdg-user-dirs' # Uhh...?
          'ash-security' # Security stuff - sudoers config, etc...
@@ -58,7 +58,7 @@ package() {
     done
 
     # Enable the services
-    SERVICES="sshd ntpd dhcpcd"
+    SERVICES="sshd ntpd dhcpcd immix"
     mkdir -p "${pkgdir}/etc/systemd/system/multiuser.target.wants"
     for SERVICE in $SERVICES; do
         ln -s "/usr/lib/systemd/system/${SERVICE}.service" \
