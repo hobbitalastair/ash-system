@@ -1,0 +1,5 @@
+UNISON=.config/unison
+UNISONBACKUPDIR=.local/share/unison/backups
+
+EDITOR="/usr/bin/vim"
+PAGER="/usr/bin/less"

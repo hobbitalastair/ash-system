@@ -4,14 +4,14 @@
 
 #<ip-address>	<hostname.domain.org>	<hostname>
 # Local ip address
-127.0.0.1	localhost.localdomain	    localhost
-::1		    localhost.localdomain	    localhost
+127.0.0.1   localhost.localdomain       localhost
+::1         localhost.localdomain       localhost
 
-# Central server for things like unison
-10.0.1.2    central.localdomain         central
+# The 'control' computer
+10.0.1.2    control.localdomain         control
 
 # Computers
-10.0.1.2	zechariah.localdomain		zechariah
-10.0.1.3	habakkuk.localdomain		habakkuk
+10.0.1.2    zechariah.localdomain       zechariah
+10.0.1.3    habakkuk.localdomain        habakkuk
 
 # End of file

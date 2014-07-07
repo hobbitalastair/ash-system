@@ -37,9 +37,6 @@ post_install() {
     else
         useradd ash -M -G video -c "Alastair Hughes" -U && \
             echo "   Added user 'ash'" || echo "-> Failed to add user 'ash'!"
-        # Update permissions on /home/ash
-        chown ash -R /home/ash && chgrp ash -R /home/ash ||
-            echo "-> Failed to update permissions on /home/ash!"
     fi
 
     # Symlink in the timezone
@@ -64,15 +61,22 @@ post_install() {
     passwd root
     echo "-> New ash passwd:"
     passwd ash
+
+    # Generate an ssh key for ash
+    echo "-> Generating a ssh key for ash"
+    ssh-keygen -t rsa -C "hobbitalastair@yandex.com"
+
+    # Copy the ssh key to 'control'
+    # Make sure this happens or else you will be locked out!!!
+    ssh-copy-id ash@control.localdomain && \
+        echo "   Copied the ssh key to 'control'" ||
+        echo "-> Failed to copy the ssh key to 'control'!!!" && exit 2
+    # Copy in the other direction
+    ssh ash@control.localdomain -c "ssh-copy-id ash@$(hostname)" && \
+        echo "   Key copied from control to $(hostname)" ||
+        echo "-> Failed to copy the ssh key from control to $(hostname)" && \
+            exit 2
     
-    # Enable ntp
-    systemctl enable ntpd && \
-        echo "   ntpd enabled" || echo "-> Failed to enble ntpd!"
-
-    # Enable dhcpcd
-    systemctl enable dhcpcd && \
-        echo "   dhcpcd enabled" || echo "-> Failed to enable dhcpcd!"
-
     # Reminder to generate a mkinitcpio and add a bootloaded, if on a pc
     if [ $(uname -m | grep 86) ]; then
         echo ":: Reminder: Modify /etc/mkinitcpio.conf then regenerate a initcpio "
@@ -89,10 +93,11 @@ post_install() {
         echo '   Patched /etc/hosts' || \
         echo '-> Patching /etc/hosts failed!'
 
-    chown ash /home/ash
-    chgrp ash /home/ash
-    chown ash /home/ash/.config/unison/home.prf
-    chgrp ash /home/ash/.config/unison/home.prf
+    patchman -A "/etc/ssh/sshd_config" "${PATCHDIR}/sshd_config.sed" \
+        --nocheck && \
+        echo "   Patched /etc/ssh/sshd_config" || \
+        echo "-> Patching /etc/ssh/sshd_config failed!"
+
 }
 
 ## arg 1:  the new package version
@@ -128,11 +133,29 @@ post_upgrade() {
         patchman -U "/etc/hosts" "${PATCHDIR}/hosts.file" --nocheck
     fi
 
-    # Set the owner the files in ash to ash
-    chown ash /home/ash
-    chgrp ash /home/ash
-    chown ash /home/ash/.config/unison/home.prf
-    chgrp ash /home/ash/.config/unison/home.prf
+    # SSH config patch
+    if [ $(vercmp $2 0.2.10) -lt 1 ]; then
+        patchman -A "/etc/ssh/sshd_config" "${PATCHDIR}/sshd_config.sed" \
+            --nocheck && \
+            echo "   Patched /etc/ssh/sshd_config" || \
+            echo "-> Patching /etc/ssh/sshd_config failed!"
+    else
+        patchman -U "/etc/ssh/sshd_config" "${PATCHDIR}/sshd_config.sed" \
+            --nocheck
+    fi
+    # Restart sshd
+    systemctl restart sshd
+
+    # Environment patch
+    if [ $(vercmp $2 0.2.12) -lt 1 ]; then
+        patchman -A "/etc/environment" "${PATCHDIR}/environment.file" \
+            --nocheck && \
+            echo "   Patched /etc/environment" || \
+            echo "-> Patching /etc/environment failed!"
+    else
+        patchman -U "/etc/environment" "${PATCHDIR}/environment.file" \
+            --nocheck
+    fi
 }
 
 # arg 1:  the old package version
@@ -142,21 +165,15 @@ pre_remove() {
     userdel ash && \
         echo "   User 'ash' removed" || echo "-> Failed to delete user 'ash'"
 
-    # Disable ntp
-    systemctl disable ntpd && \
-        echo "   ntpd disabled" || echo "-> Failed to disable ntpd!"
-
-    # Disable dhcpcd
-    systemctl disable dhcpcd && \
-        echo "   dhcpcd disabled" || echo "-> Failed to disable dhcpcd!"
-
     # Remove the timezone symlink
     rm /etc/localtime && \
-        echo "   Removed timezone symlink" || echo "-> Failed to remove timezone symlink!"
+        echo "   Removed timezone symlink" || \
+        echo "-> Failed to remove timezone symlink!"
 
     # Remove locale.conf and recomment /etc/locale.gen
     rm /etc/locale.conf && \
-        echo "   Removed /etc/locale.conf" || echo "-> Failed to remove /etc/locale.conf!"
+        echo "   Removed /etc/locale.conf" || \
+        echo "-> Failed to remove /etc/locale.conf!"
     sed -i -e "s:$NEW_LANG UTF-8:#$NEW_LANG UTF-8:" /etc/locale.gen && \
         echo "   Recommented $NEW_LANG in /etc/locale.gen" || \
         echo "-> Failed to recomment $NEW_LANG in /etc/locale.gen"
@@ -170,5 +187,9 @@ pre_remove() {
         echo '   Unpatched /etc/hosts' || \
         echo '-> Unpatching /etc/hosts failed!'
 
+    patchman -R "/etc/ssh/sshd_config" "${PATCHDIR}/sshd_config.sed" \
+        --nocheck && \
+        echo "   Unpatched /etc/ssh/sshd_config" || \
+        echo "-> Unpatching /etc/ssh/sshd_config failed!"
 }
 

@@ -5,7 +5,7 @@
 # Base directory specifications
 #
 
-export XDG_DATA_HOME="$HOME/.data"
+export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 
@@ -26,9 +26,6 @@ alias lynx="lynx -book -accept_all_cookies"
 alias vim="vim -u /etc/vim.conf -i $XDG_DATA_HOME/vim.info"
 alias unison="unison -logfile ${XDG_CACHE_HOME}/unison.log"
 alias pylint="pylint --rcfile=/etc/pylint.config"
-# Temporary alias - start keychain only when first required
-alias ssh='eval $(keychain --eval --dir ${XDG_CONFIG_HOME}/keychain --agents ssh -Q -q \
-           id_rsa) && unalias ssh && ssh'
 
 
 #
@@ -47,6 +44,7 @@ export LESSHISTFILE="$XDG_DATA_HOME/less.history"
 #export PYTHONPATH="$HOME/python/apg"
 export PYTHONDONTWRITEBYTECODE="True"
 export UNISON="$XDG_CONFIG_HOME/unison"
+export UNISONBACKUPDIR="$XDG_DATA_HOME/unison/backups"
 export GIT_DIR=".git"
 
 
@@ -59,4 +57,13 @@ ps_memory () {
     ps -v | grep -e "$1"
 }
 
+
+#
+# Programs
+#
+
+# Start the keychain
+# Cannot do this in an alias - ssh is not called by git...
+eval $(keychain --eval --dir ${XDG_CONFIG_HOME}/keychain --agents ssh -Q -q \
+        id_rsa)
 
