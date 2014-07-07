@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.14
-pkgrel=2
+pkgver=0.2.15
+pkgrel=4
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -25,6 +25,7 @@ source=( # New files
         'terminal.sh'   # Env variables and alias for ash
         'sudoers.ash'   # Sudoers config for ash
         'gitconfig'     # Global git config
+        'pacman.ash'    # My personal additions to pacman's default config
 
         # Unison files
         'sshd_config.sed'   # Sed script to allow the user environment
@@ -34,6 +35,7 @@ source=( # New files
         'lynx.cfg.patch'    # Lynx config patch
         'hosts.file'        # Known hostnames 
         'sshd_config.sed'   # Sed script to 'fix' the sshd config
+        'pacman.conf.sh'
        )
 backup=("etc/sudoers.d/ash-base")
 
@@ -50,6 +52,9 @@ package() {
     # Add the sudoers file for ash
     install -dm0750 "${pkgdir}/etc/sudoers.d"
     install -Dm0440 "${srcdir}/sudoers.ash" "${pkgdir}/etc/sudoers.d/ash-base"
+
+    # Add the pacman.conf additonal file
+    install -Dm0644 "${srcdir}/pacman.ash" "${pkgdir}/etc/pacman.d/pacman.ash"
 
     # Add the skel files
     SKEL=".ssh .config .local .config/unison .local/share/unison/backups"
@@ -73,14 +78,17 @@ package() {
     install -m0644 "${srcdir}/sshd_config.sed" \
                    "${PATCHDIR}/sshd_config.sed"
     install -m0644 "${srcdir}/environment.file" "${PATCHDIR}/environment.file"
+    install -m0644 "${srcdir}/pacman.conf.sh" "${PATCHDIR}/pacman.conf.sh"
 }
 
 md5sums=('16086a76c0267dcbc6826bb64160d0ef'
          'f86d0d28892ef0e15b35e4c96b925ab2'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
+         '9f87335751a337e4f8c47e3e292b6d3d'
          'd7967ec5efc88b263e8ecbf0e5f87d2d'
          'e05c617da3f0f3688b476a854ec74466'
          '97d008f19c0db4bf39ae6b98f51730cd'
          '75063996f8637a7bb42b1a37102a7a2a'
-         'd7967ec5efc88b263e8ecbf0e5f87d2d')
+         'd7967ec5efc88b263e8ecbf0e5f87d2d'
+         'a9851172265a0c39d503a5bcb0e179c2')

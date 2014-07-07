@@ -79,7 +79,8 @@ post_install() {
     
     # Reminder to generate a mkinitcpio and add a bootloaded, if on a pc
     if [ $(uname -m | grep 86) ]; then
-        echo ":: Reminder: Modify /etc/mkinitcpio.conf then regenerate a initcpio "
+        echo ":: Reminder: Modify /etc/mkinitcpio.conf then regenerate a " \
+             "initcpio "
         echo "   with 'mkinitcpio -p linux"
         echo ":: Reminder: Add a bootloader!"
     fi
@@ -109,6 +110,12 @@ post_install() {
         echo "   Patched /etc/ssh/sshd_config" || \
         echo "-> Patching /etc/ssh/sshd_config failed!"
 
+    PATCH='pacman.conf.sh'
+    TARGET='/etc/pacman.conf'
+    patchman -A "$TARGET" "${PATCHDIR}/$PATCH" \
+        --nocheck && \
+        echo "   Patched $TARGET" || \
+        echo "-> Patching $TARGET failed!"
 }
 
 ## arg 1:  the new package version
@@ -167,6 +174,20 @@ post_upgrade() {
         patchman -U "/etc/environment" "${PATCHDIR}/environment.file" \
             --nocheck
     fi
+
+    # Pacman conf patch
+    PATCH='pacman.conf.sh'
+    TARGET='/etc/pacman.conf'
+    VERSION=0.2.14
+    if [ $(vercmp $2 $VERSION) -lt 1 ]; then
+        patchman -A "$TARGET" "${PATCHDIR}/$PATCH" \
+            --nocheck && \
+            echo "   Patched $TARGET" || \
+            echo "-> Patching $TARGET failed!"
+    else
+        patchman -U "$TARGET" "${PATCHDIR}/$PATCH" \
+            --nocheck
+    fi
 }
 
 # arg 1:  the old package version
@@ -202,5 +223,12 @@ pre_remove() {
         --nocheck && \
         echo "   Unpatched /etc/ssh/sshd_config" || \
         echo "-> Unpatching /etc/ssh/sshd_config failed!"
+
+    PATCH='pacman.conf.sh'
+    TARGET='/etc/pacman.conf'
+    patchman -R "$TARGET" "${PATCHDIR}/$PATCH" \
+        --nocheck && \
+        echo "   Unpatched $TARGET" || \
+        echo "-> Unpatching $TARGET failed!"
 }
 
