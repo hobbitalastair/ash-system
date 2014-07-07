@@ -84,6 +84,17 @@ post_install() {
         echo ":: Reminder: Add a bootloader!"
     fi
 
+    # Get the new hostname and pretty hostname
+    echo "-> Please enter a new hostname: "
+    read HOSTNAME
+    hostnamectl --static $HOSTNAME
+    echo "-> Please enter a new pretty hostname: "
+    read PRETTY_HOSTNAME
+    hostnamectl --pretty $PRETTY_HOSTNAME
+
+    echo ":: Reminder: Please add the hostname $HOSTNAME to the static " \
+         "hostname file"
+
     # Patches
     patchman -A "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck && \
         echo '   Patched /etc/lynx.cfg' || \
