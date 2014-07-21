@@ -57,6 +57,19 @@ ps_memory () {
     ps -v | grep -e "$1"
 }
 
+error_codes () {
+    # Output a list of error codes, searched with $1 is supplied
+    # Taken from online
+
+    if ! [ "$1" ]; then
+        ERROR_CODE=".*"
+    else
+        ERROR_CODE="$1"
+    fi
+
+    perl -e 'print grep !/unknown error/i, map $_." ".($!=$_).$/, 0..127' | \
+        grep -e "^$ERROR_CODE "
+}
 
 #
 # Programs

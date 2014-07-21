@@ -1,18 +1,18 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.15
-pkgrel=4
+pkgver=0.2.17
+pkgrel=2
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
 # Install needed packages
 depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
          'vim' 'lynx' 'less' 'git' 'openssh' 'sudo' 'alsa-utils' 'unzip' 
-         'keychain' # Userspace tools
+         'keychain' 'teapot' # Userspace tools
          'immix' 'ntp' # Automation of some tasks
          'xdg-user-dirs' # Uhh...?
          'ash-security' # Security stuff - sudoers config, etc...
-         'patchman' # Required for this package
+         'patchman' 'perl' # Required for this package
         )
 
 # Remove unwanted packages.
@@ -64,10 +64,10 @@ package() {
 
     # Enable the services
     SERVICES="sshd ntpd dhcpcd immix"
-    mkdir -p "${pkgdir}/etc/systemd/system/multiuser.target.wants"
+    mkdir -p "${pkgdir}/etc/systemd/system/multi-user.target.wants"
     for SERVICE in $SERVICES; do
         ln -s "/usr/lib/systemd/system/${SERVICE}.service" \
-      "${pkgdir}/etc/systemd/system/multiuser.target.wants/${SERVICE}.service"
+      "${pkgdir}/etc/systemd/system/multi-user.target.wants/${SERVICE}.service"
     done
 
     # Add the patches
@@ -82,7 +82,7 @@ package() {
 }
 
 md5sums=('16086a76c0267dcbc6826bb64160d0ef'
-         'f86d0d28892ef0e15b35e4c96b925ab2'
+         '56778ad8688f2547a5f503680a419850'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
          '9f87335751a337e4f8c47e3e292b6d3d'
