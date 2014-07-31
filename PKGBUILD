@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
 pkgver=0.2.17
-pkgrel=8
+pkgrel=9
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -87,10 +87,10 @@ package() {
 }
 
 md5sums=('aa34cb95ea1464bd78c1967152585c5f'
-         '9f727bc0a03a4de2803dd273f87759fa'
+         '78ed05e222dd8afee159306665787b07'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
-         'bf2a9efb5562310c62a35985f7ee56c5'
+         '9f87335751a337e4f8c47e3e292b6d3d'
          '92d3081ea652da4b65ad4ce9484b01fa'
          'd7967ec5efc88b263e8ecbf0e5f87d2d'
          '2d499e3e1efa5725193439ee1112a905'

@@ -7,7 +7,7 @@
 
 [options]
 # Color!
-Color = always
+Color
 
 # Check for space first...
 CheckSpace

@@ -28,6 +28,7 @@ alias lynx="lynx -book -accept_all_cookies"
 alias vim="vim -u /etc/vim.conf -i $XDG_DATA_HOME/vim.info"
 alias unison="unison -logfile ${XDG_CACHE_HOME}/unison.log"
 alias pylint="pylint --rcfile=/etc/pylint.config"
+alias pacman="pacman --color=always"
 
 
 #

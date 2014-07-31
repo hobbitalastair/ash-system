@@ -115,10 +115,11 @@ EXEC 01;32
 .target 01;33
 
 
-# Document text files: Dark red
+# Document files: Dark red
 .md 31
 .tex 31
 .txt 31
+.pdf 31
 
 
 # Config files (.cfg, .conf, .config): Dark magenta
