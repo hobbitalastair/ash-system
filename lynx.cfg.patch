@@ -2,10 +2,6 @@
 < STARTFILE:http://lynx.isc.org/
 ---
 > STARTFILE:http://www.bing.com/
-117c117
-< HELPFILE:http://lynx.isc.org/release/breakout/lynx_help/lynx_help_main.html
----
-> #HELPFILE:http://lynx.isc.org/release/breakout/lynx_help/lynx_help_main.html
 119c119
 < #HELPFILE:file://localhost/PATH_TO/lynx_help/lynx_help_main.html
 ---
@@ -33,11 +29,11 @@
 1398c1398
 < #COOKIE_FILE:~/.lynx_cookies
 ---
-> COOKIE_FILE:~/.data/lynx_cookies
+> COOKIE_FILE:~/.local/share/lynx_cookies
 1567c1567
 < #DEFAULT_BOOKMARK_FILE:lynx_bookmarks.html
 ---
-> DEFAULT_BOOKMARK_FILE:./.data/lynx_bookmarks.html
+> DEFAULT_BOOKMARK_FILE:./.local/share/lynx_bookmarks.html
 1589c1589
 < #MULTI_BOOKMARK_SUPPORT:FALSE
 ---

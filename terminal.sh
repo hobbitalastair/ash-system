@@ -20,6 +20,8 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias ls="ls --color"
 alias less="less -FR" # Add colour support, and quitting if the output is short
+alias grep="grep --color=always"
+alias man="man --html"
 
 # Main application aliases
 alias lynx="lynx -book -accept_all_cookies"
@@ -32,20 +34,12 @@ alias pylint="pylint --rcfile=/etc/pylint.config"
 # Environment variables
 #
 
-export EDITOR="/usr/bin/vim"
-export BROWSER="/usr/bin/lynx"
-export PAGER="/usr/bin/less"
-
 # Application environment variables
-export TZ='Pacific/Auckland'
 export HISTFILE="$XDG_DATA_HOME/bash.history"
 export LESSHISTFILE="$XDG_DATA_HOME/less.history"
 
-#export PYTHONPATH="$HOME/python/apg"
-export PYTHONDONTWRITEBYTECODE="True"
 export UNISON="$XDG_CONFIG_HOME/unison"
 export UNISONBACKUPDIR="$XDG_DATA_HOME/unison/backups"
-export GIT_DIR=".git"
 
 
 #
@@ -79,4 +73,7 @@ error_codes () {
 # Cannot do this in an alias - ssh is not called by git...
 eval $(keychain --eval --dir ${XDG_CONFIG_HOME}/keychain --agents ssh -Q -q \
         id_rsa)
+
+# Add my own colors
+eval $(dircolors --sh /etc/dircolours.conf)
 

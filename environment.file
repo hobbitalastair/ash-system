@@ -1,5 +1,11 @@
-UNISON=.config/unison
-UNISONBACKUPDIR=.local/share/unison/backups
+TZ='Pacific/Auckland'
 
 EDITOR="/usr/bin/vim"
+BROWSER="/usr/bin/lynx"
 PAGER="/usr/bin/less"
+
+UNISON=.config/unison
+UNISONBACKUPDIR=.local/share/unison/backups
+PYTHONDONTWRITEBYTECODE="True"
+GIT_DIR=".git"
+

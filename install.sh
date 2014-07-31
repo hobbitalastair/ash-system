@@ -35,7 +35,7 @@ post_install() {
     if [ $(cat /etc/passwd | grep -e ^ash) ]; then
         echo "   User ash exists - leaving"
     else
-        useradd ash -M -G video -c "Alastair Hughes" -U && \
+        useradd ash -G video -c "Alastair Hughes" -U && \
             echo "   Added user 'ash'" || echo "-> Failed to add user 'ash'!"
     fi
 
@@ -134,7 +134,7 @@ pre_upgrade() {
 post_upgrade() {
 
     # Lynx config patch
-    if [ $(vercmp $2 0.1-14) -lt 1 ]; then
+    if [ $(vercmp $2 0.1.0) -lt 1 ]; then
         patchman -A "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck && \
             echo '   Patched /etc/lynx.cfg' || \
             echo '-> Patching /etc/lynx.cfg failed!'

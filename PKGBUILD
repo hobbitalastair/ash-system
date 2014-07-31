@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
 pkgver=0.2.17
-pkgrel=2
+pkgrel=8
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -26,6 +26,7 @@ source=( # New files
         'sudoers.ash'   # Sudoers config for ash
         'gitconfig'     # Global git config
         'pacman.ash'    # My personal additions to pacman's default config
+        'colours.ash'   # Colours for ls --color
 
         # Unison files
         'sshd_config.sed'   # Sed script to allow the user environment
@@ -49,18 +50,21 @@ package() {
     # Add the default profile file
     install -Dm0755 "${srcdir}/terminal.sh" \
                     "${pkgdir}/etc/profile.d/terminal.sh"
+    # Add the colors config
+    install -Dm0644 "${srcdir}/colours.ash" "${pkgdir}/etc/dircolours.conf"
     # Add the sudoers file for ash
     install -dm0750 "${pkgdir}/etc/sudoers.d"
     install -Dm0440 "${srcdir}/sudoers.ash" "${pkgdir}/etc/sudoers.d/ash-base"
-
     # Add the pacman.conf additonal file
     install -Dm0644 "${srcdir}/pacman.ash" "${pkgdir}/etc/pacman.d/pacman.ash"
+
 
     # Add the skel files
     SKEL=".ssh .config .local .config/unison .local/share/unison/backups"
     for DIR in $SKEL; do
         mkdir -p "${pkgdir}/etc/skel/$DIR"
     done
+
 
     # Enable the services
     SERVICES="sshd ntpd dhcpcd immix"
@@ -69,6 +73,7 @@ package() {
         ln -s "/usr/lib/systemd/system/${SERVICE}.service" \
       "${pkgdir}/etc/systemd/system/multi-user.target.wants/${SERVICE}.service"
     done
+
 
     # Add the patches
     PATCHDIR="${pkgdir}/usr/share/ash-base"
@@ -81,14 +86,15 @@ package() {
     install -m0644 "${srcdir}/pacman.conf.sh" "${PATCHDIR}/pacman.conf.sh"
 }
 
-md5sums=('16086a76c0267dcbc6826bb64160d0ef'
-         '56778ad8688f2547a5f503680a419850'
+md5sums=('aa34cb95ea1464bd78c1967152585c5f'
+         '9f727bc0a03a4de2803dd273f87759fa'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
-         '9f87335751a337e4f8c47e3e292b6d3d'
+         'bf2a9efb5562310c62a35985f7ee56c5'
+         '92d3081ea652da4b65ad4ce9484b01fa'
          'd7967ec5efc88b263e8ecbf0e5f87d2d'
-         'e05c617da3f0f3688b476a854ec74466'
-         '97d008f19c0db4bf39ae6b98f51730cd'
-         '75063996f8637a7bb42b1a37102a7a2a'
+         '2d499e3e1efa5725193439ee1112a905'
+         '4756fc1616221f5cbe19478dee4b24fa'
+         '11ac0c498dbb95cd6ad167c51062001e'
          'd7967ec5efc88b263e8ecbf0e5f87d2d'
          'a9851172265a0c39d503a5bcb0e179c2')

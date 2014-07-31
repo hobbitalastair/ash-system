@@ -8,10 +8,11 @@
 ::1         localhost.localdomain       localhost
 
 # The 'control' computer
-10.0.1.2    control.localdomain         control
+10.0.1.3    control.localdomain         control
 
 # Computers
 10.0.1.2    zechariah.localdomain       zechariah
 10.0.1.3    habakkuk.localdomain        habakkuk
+10.0.1.4    aaron.localdomain           aaron
 
 # End of file
