@@ -29,6 +29,7 @@ alias vim="vim -u /etc/vim.conf -i $XDG_DATA_HOME/vim.info"
 alias unison="unison -logfile ${XDG_CACHE_HOME}/unison.log"
 alias pylint="pylint --rcfile=/etc/pylint.config"
 alias pacman="pacman --color=always"
+alias dmesg="dmesg -H --color=always"
 
 
 #
@@ -78,3 +79,34 @@ eval $(keychain --eval --dir ${XDG_CONFIG_HOME}/keychain --agents ssh -Q -q \
 # Add my own colors
 eval $(dircolors --sh /etc/dircolours.conf)
 
+
+#
+# Prompt...
+#
+
+get_prompt () {
+    # Print out a prompt
+
+    LAST_CMD=$?
+
+    # Setup the user colour
+    if [ "$(whoami)" == "root" ]; then
+        user_colour='41;30' # Set the background to red
+    elif [ "$(whoami)" != "$(basename $HOME)" ]; then
+        user_colour=31 # Set user to be red
+    else
+        user_colour='34;01' # Set the user to blue
+    fi
+
+    USER="\033[${user_colour}m$(whoami)\033[00m"
+
+    if [ "${LAST_CMD}" = 0 ]; then
+        PR="\033[36m\$"
+    else
+        PR="\033[31m${LAST_CMD} \$"
+    fi
+
+    echo -ne "${USER}\033[01m@\033[39;m$(hostname) \033[33m$(basename $(pwd))\033[00m ${PR}\033[00m "
+}
+
+export PS1='$(get_prompt)'
