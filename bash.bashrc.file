@@ -1,0 +1,14 @@
+# My bashrc file
+
+# Source the bash completion script
+# This is bash-specific
+
+# Exit if not interactive
+if [ -n "$(echo "$PS1" | grep '*i*')" ]; then
+    return
+fi
+
+# Bash completion
+[ -r /usr/share/bash-completion/bash_completion ] && \
+    . /usr/share/bash-completion/bash_completion
+

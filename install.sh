@@ -2,14 +2,12 @@
 ###############################################################################
 # Install script for the various base services
 #
-# - Enable syslog-ng
-# - Enable cron
-# - Enable ntp
-# - Enable dhcpcd
 # - Add the ash user
 # - Symlink in NZ as the timezone
 # - Locale generation
 # - Password setting for root and ash
+# - Add an ssh key
+# - Manage the hostnames
 # - Patches for various files
 # 
 #
@@ -77,7 +75,7 @@ post_install() {
         echo "-> Failed to copy the ssh key from control to $(hostname)" && \
             exit 2
     
-    # Reminder to generate a mkinitcpio and add a bootloaded, if on a pc
+    # Reminder to generate a mkinitcpio and add a bootloader, if on a pc
     if [ $(uname -m | grep 86) ]; then
         echo ":: Reminder: Modify /etc/mkinitcpio.conf then regenerate a " \
              "initcpio "
@@ -112,6 +110,14 @@ post_install() {
 
     PATCH='pacman.conf.sh'
     TARGET='/etc/pacman.conf'
+    patchman -A "$TARGET" "${PATCHDIR}/$PATCH" \
+        --nocheck && \
+        echo "   Patched $TARGET" || \
+        echo "-> Patching $TARGET failed!"
+
+    # Bashrc patch
+    PATCH='bash.bashrc.file'
+    TARGET='/etc/bash.bashrc'
     patchman -A "$TARGET" "${PATCHDIR}/$PATCH" \
         --nocheck && \
         echo "   Patched $TARGET" || \
@@ -188,6 +194,20 @@ post_upgrade() {
         patchman -U "$TARGET" "${PATCHDIR}/$PATCH" \
             --nocheck
     fi
+
+    # Bashrc patch
+    PATCH='bash.bashrc.file'
+    TARGET='/etc/bash.bashrc'
+    VERSION=0.2.20
+    if [ $(vercmp $2 $VERSION) -lt 1 ]; then
+        patchman -A "$TARGET" "${PATCHDIR}/$PATCH" \
+            --nocheck && \
+            echo "   Patched $TARGET" || \
+            echo "-> Patching $TARGET failed!"
+    else
+        patchman -U "$TARGET" "${PATCHDIR}/$PATCH" \
+            --nocheck
+    fi
 }
 
 # arg 1:  the old package version
@@ -226,6 +246,14 @@ pre_remove() {
 
     PATCH='pacman.conf.sh'
     TARGET='/etc/pacman.conf'
+    patchman -R "$TARGET" "${PATCHDIR}/$PATCH" \
+        --nocheck && \
+        echo "   Unpatched $TARGET" || \
+        echo "-> Unpatching $TARGET failed!"
+
+    # Bashrc patch
+    PATCH='bash.bashrc.file'
+    TARGET='/etc/bash.bashrc'
     patchman -R "$TARGET" "${PATCHDIR}/$PATCH" \
         --nocheck && \
         echo "   Unpatched $TARGET" || \

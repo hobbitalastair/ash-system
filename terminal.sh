@@ -90,9 +90,9 @@ get_prompt () {
     LAST_CMD=$?
 
     # Setup the user colour
-    if [ "$(whoami)" == "root" ]; then
+    if [ "$(whoami)" = "root" ]; then
         user_colour='41;30' # Set the background to red
-    elif [ "$(whoami)" != "$(basename $HOME)" ]; then
+    elif ! [ "$(whoami)" = "$(basename $HOME)" ]; then
         user_colour=31 # Set user to be red
     else
         user_colour='34;01' # Set the user to blue
@@ -106,7 +106,10 @@ get_prompt () {
         PR="\033[31m${LAST_CMD} \$"
     fi
 
-    echo -ne "${USER}\033[01m@\033[39;m$(hostname) \033[33m$(basename $(pwd))\033[00m ${PR}\033[00m "
+    printf "${USER}\033[01m@\033[39;m$(hostname) \033[33m$(basename $(pwd))\033[00m ${PR}\033[00m "
 }
 
-export PS1='$(get_prompt)'
+# Only export the prompt if in an interactive shell
+if [ -z "$(echo "$PS1" | grep '*i*')" ]; then
+    export PS1='$(get_prompt)'
+fi

@@ -1,14 +1,14 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.17
-pkgrel=9
+pkgver=0.2.22
+pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
 # Install needed packages
 depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
          'vim' 'lynx' 'less' 'git' 'openssh' 'sudo' 'alsa-utils' 'unzip' 
-         'keychain' 'teapot' # Userspace tools
+         'keychain' 'teapot' 'bash-completion' # Userspace tools
          'immix' 'ntp' # Automation of some tasks
          'xdg-user-dirs' # Uhh...?
          'ash-security' # Security stuff - sudoers config, etc...
@@ -36,7 +36,8 @@ source=( # New files
         'lynx.cfg.patch'    # Lynx config patch
         'hosts.file'        # Known hostnames 
         'sshd_config.sed'   # Sed script to 'fix' the sshd config
-        'pacman.conf.sh'
+        'pacman.conf.sh'    # Add an include for pacman.ash
+        'bash.bashrc.file'  # File to remove bash stuff
        )
 backup=("etc/sudoers.d/ash-base")
 
@@ -84,17 +85,19 @@ package() {
                    "${PATCHDIR}/sshd_config.sed"
     install -m0644 "${srcdir}/environment.file" "${PATCHDIR}/environment.file"
     install -m0644 "${srcdir}/pacman.conf.sh" "${PATCHDIR}/pacman.conf.sh"
+    install -m0644 "${srcdir}/bash.bashrc.file" "${PATCHDIR}/bash.bashrc.file"
 }
 
 md5sums=('aa34cb95ea1464bd78c1967152585c5f'
-         '78ed05e222dd8afee159306665787b07'
+         '3b6513fec9a4eaf72be05a13b5dddc42'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
          '9f87335751a337e4f8c47e3e292b6d3d'
-         '92d3081ea652da4b65ad4ce9484b01fa'
+         'bb75d24376419f8261d47c705b12e0bc'
          'd7967ec5efc88b263e8ecbf0e5f87d2d'
          '2d499e3e1efa5725193439ee1112a905'
          '4756fc1616221f5cbe19478dee4b24fa'
          '11ac0c498dbb95cd6ad167c51062001e'
          'd7967ec5efc88b263e8ecbf0e5f87d2d'
-         'a9851172265a0c39d503a5bcb0e179c2')
+         'a9851172265a0c39d503a5bcb0e179c2'
+         'fec2b1c71d884437d7cc96ba9ad34d53')

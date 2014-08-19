@@ -7,5 +7,4 @@ PAGER="/usr/bin/less"
 UNISON=.config/unison
 UNISONBACKUPDIR=.local/share/unison/backups
 PYTHONDONTWRITEBYTECODE="True"
-GIT_DIR=".git"
 
