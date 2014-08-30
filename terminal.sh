@@ -40,6 +40,8 @@ alias dmesg="dmesg -H --color=always"
 export HISTFILE="$XDG_DATA_HOME/bash.history"
 export LESSHISTFILE="$XDG_DATA_HOME/less.history"
 
+export DICTIONARY="$XDG_DATA_HOME/dict-$LANG"
+
 export UNISON="$XDG_CONFIG_HOME/unison"
 export UNISONBACKUPDIR="$XDG_DATA_HOME/unison/backups"
 

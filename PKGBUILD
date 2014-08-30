@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.22
+pkgver=0.2.23
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
@@ -8,7 +8,8 @@ license=('GPL')
 # Install needed packages
 depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
          'vim' 'lynx' 'less' 'git' 'openssh' 'sudo' 'alsa-utils' 'unzip' 
-         'keychain' 'teapot' 'bash-completion' # Userspace tools
+         'keychain' 'teapot' 'bash-completion' 'hunspell' 'hunspell-en' 
+         # Userspace tools
          'immix' 'ntp' # Automation of some tasks
          'xdg-user-dirs' # Uhh...?
          'ash-security' # Security stuff - sudoers config, etc...
@@ -89,13 +90,13 @@ package() {
 }
 
 md5sums=('aa34cb95ea1464bd78c1967152585c5f'
-         '3b6513fec9a4eaf72be05a13b5dddc42'
+         '060cddbf9bdcabb372475cd42ece3afd'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
          '9f87335751a337e4f8c47e3e292b6d3d'
          'bb75d24376419f8261d47c705b12e0bc'
          'd7967ec5efc88b263e8ecbf0e5f87d2d'
-         '2d499e3e1efa5725193439ee1112a905'
+         '86d7c0ff231e094ca30ec0a26feaab2c'
          '4756fc1616221f5cbe19478dee4b24fa'
          '11ac0c498dbb95cd6ad167c51062001e'
          'd7967ec5efc88b263e8ecbf0e5f87d2d'
