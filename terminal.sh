@@ -30,6 +30,7 @@ alias unison="unison -logfile ${XDG_CACHE_HOME}/unison.log"
 alias pylint="pylint --rcfile=/etc/pylint.config"
 alias pacman="pacman --color=always"
 alias dmesg="dmesg -H --color=always"
+alias hunspell="hunspell -p ${XDG_DATA_HOME}/hunspell/${LANG}.dict"
 
 
 #
@@ -39,8 +40,6 @@ alias dmesg="dmesg -H --color=always"
 # Application environment variables
 export HISTFILE="$XDG_DATA_HOME/bash.history"
 export LESSHISTFILE="$XDG_DATA_HOME/less.history"
-
-export DICTIONARY="$XDG_DATA_HOME/dict-$LANG"
 
 export UNISON="$XDG_CONFIG_HOME/unison"
 export UNISONBACKUPDIR="$XDG_DATA_HOME/unison/backups"
@@ -80,6 +79,11 @@ eval $(keychain --eval --dir ${XDG_CONFIG_HOME}/keychain --agents ssh -Q -q \
 
 # Add my own colors
 eval $(dircolors --sh /etc/dircolours.conf)
+
+# Load any personal config
+if [ -f "${XDG_CONFIG_HOME}/profile" ]; then
+    . "${XDG_CONFIG_HOME}/profile"
+fi
 
 
 #
