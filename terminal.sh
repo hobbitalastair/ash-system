@@ -74,8 +74,18 @@ error_codes () {
 
 # Start the keychain
 # Cannot do this in an alias - ssh is not called by git...
-eval $(keychain --eval --dir ${XDG_CONFIG_HOME}/keychain --agents ssh -Q -q \
-        id_rsa)
+if [ -e "$(echo ~/.ssh/id_* | sed -e 's: .*::')" ]; then
+
+    # Generate a list of keys
+    for id in ~/.ssh/id_*; do
+        if [ "$(echo ${id} | sed /id_.*.pub/d)" ]; then
+            keylist="${keylist} $(basename ${id})"
+        fi
+    done
+
+    eval $(keychain --eval --dir ${XDG_CONFIG_HOME}/keychain --agents ssh -Q \
+                    -q ${keylist})
+fi
 
 # Add my own colors
 eval $(dircolors --sh /etc/dircolours.conf)

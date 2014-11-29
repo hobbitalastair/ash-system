@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
 pkgver=0.2.28
-pkgrel=1
+pkgrel=2
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -69,7 +69,7 @@ package() {
 
 
     # Enable the services
-    SERVICES="sshd ntpd dhcpcd immix"
+    SERVICES="sshd dhcpcd immix systemd-timesyncd"
     mkdir -p "${pkgdir}/etc/systemd/system/multi-user.target.wants"
     for SERVICE in $SERVICES; do
         ln -s "/usr/lib/systemd/system/${SERVICE}.service" \

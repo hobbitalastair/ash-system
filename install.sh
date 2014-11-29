@@ -60,20 +60,22 @@ post_install() {
     echo "-> New ash passwd:"
     passwd ash
 
+    # Does not work from a live cd - why?
+
     # Generate an ssh key for ash
-    echo "-> Generating a ssh key for ash"
-    ssh-keygen -t rsa -C "hobbitalastair@yandex.com"
+    #echo "-> Generating a ssh key for ash"
+    #ssh-keygen -t rsa -C "hobbitalastair@yandex.com"
 
     # Copy the ssh key to 'control'
     # Make sure this happens or else you will be locked out!!!
-    ssh-copy-id ash@control.localdomain && \
-        echo "   Copied the ssh key to 'control'" ||
-        echo "-> Failed to copy the ssh key to 'control'!!!" && exit 2
+    #ssh-copy-id ash@control.localdomain && \
+    #    echo "   Copied the ssh key to 'control'" ||
+    #    echo "-> Failed to copy the ssh key to 'control'!!!" && exit 2
     # Copy in the other direction
-    ssh ash@control.localdomain -c "ssh-copy-id ash@$(hostname)" && \
-        echo "   Key copied from control to $(hostname)" ||
-        echo "-> Failed to copy the ssh key from control to $(hostname)" && \
-            exit 2
+    #ssh ash@control.localdomain -c "ssh-copy-id ash@$(hostname)" && \
+    #    echo "   Key copied from control to $(hostname)" ||
+    #    echo "-> Failed to copy the ssh key from control to $(hostname)" && \
+    #        exit 2
     
     # Reminder to generate a mkinitcpio and add a bootloader, if on a pc
     if [ $(uname -m | grep 86) ]; then
