@@ -6,13 +6,13 @@ pkgdesc="Vostro 1510-specific configuration"
 arch=('any')
 license=('GPL')
 # Install needed packages
-depends=('powersave' 'triggerhappy')
+depends=('powersave' 'triggerhappy-git')
 
 # Files to add
 source=( # New files
         'multimedia.conf' # Triggerhappy multimedia key config
        )
-md5sums=()
+md5sums=('2d5c3cf973f796109ff6ac57bb0c3479')
 backup=("etc/triggerhappy/multimedia.conf")
 
 package() {
