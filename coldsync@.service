@@ -1,0 +1,14 @@
+[Unit]
+Description=Coldsync on %I
+# I'm not sure how to implement BindsTo/After so that the service stops
+# when the device is unplugged...
+# See: unix.stackexchange.com/questions/63232/what-is-the-correct-way-to-write-a-udev-rule-to-stop-a-service-under-systemd
+
+[Service]
+Type=simple
+# TODO: Currently this rapidly restarts...
+#       This appears to be a limitation of coldsync.
+ExecStart=/usr/bin/coldsync -md -p "%I"
+Restart=always
+RestartSec=10
+
