@@ -23,7 +23,7 @@ VerbosePkgLists
 # Repos
 #
 
-[custom]
-Server = http://control/
-SigLevel = Optional TrustAll
+#[custom]
+#Server = http://control/
+#SigLevel = Optional TrustAll
 

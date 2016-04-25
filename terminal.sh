@@ -31,6 +31,7 @@ alias pylint="pylint --rcfile=/etc/pylint.config"
 alias pacman="pacman --color=always"
 alias dmesg="dmesg -H --color=always"
 alias hunspell="hunspell -p ${XDG_DATA_HOME}/hunspell/${LANG}.dict"
+alias snownews="snownews --update"
 
 
 #
@@ -43,6 +44,9 @@ export LESSHISTFILE="$XDG_DATA_HOME/less.history"
 
 export UNISON="$XDG_CONFIG_HOME/unison"
 export UNISONBACKUPDIR="$XDG_DATA_HOME/unison/backups"
+
+# Lynx config.
+export LYNX_CFG="${XDG_CONFIG_HOME:-${HOME}/.config}/lynx.conf"
 
 
 #

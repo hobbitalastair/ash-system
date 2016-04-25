@@ -210,6 +210,17 @@ post_upgrade() {
         patchman -U "$TARGET" "${PATCHDIR}/$PATCH" \
             --nocheck
     fi
+
+    # Bashrc patch
+    PATCH='lynx.cfg.patch'
+    TARGET='/etc/lynx.cfg'
+    VERSION=0.2.32
+    if [ $(vercmp $2 $VERSION) -lt 1 ]; then
+        patchman -R "$TARGET" "${PATCHDIR}/$PATCH" \
+            --nocheck && \
+            echo '   Unpatched /etc/lynx.cfg' || \
+            echo '-> Unpatching /etc/lynx.cfg failed!'
+    fi
 }
 
 # arg 1:  the old package version
@@ -233,10 +244,6 @@ pre_remove() {
         echo "-> Failed to recomment $NEW_LANG in /etc/locale.gen"
 
     # Removing the patches
-    patchman -R "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck && \
-        echo '   Unpatched /etc/lynx.cfg' || \
-        echo '-> Unpatching /etc/lynx.cfg failed!'
-
     patchman -R "/etc/hosts" "${PATCHDIR}/hosts.file" --nocheck && \
         echo '   Unpatched /etc/hosts' || \
         echo '-> Unpatching /etc/hosts failed!'

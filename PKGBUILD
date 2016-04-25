@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.29
-pkgrel=1
+pkgver=0.2.32
+pkgrel=2
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -14,6 +14,7 @@ depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
          'xdg-user-dirs' # Uhh...?
          'ash-security' # Security stuff - sudoers config, etc...
          'patchman' 'perl' # Required for this package
+         'snownews' 'vorbis-tools'
         )
 
 # Remove unwanted packages.
@@ -34,7 +35,6 @@ source=( # New files
         'environment.file'  # Environment file (patch)
 
         # Patches
-        'lynx.cfg.patch'    # Lynx config patch
         'hosts.file'        # Known hostnames 
         'sshd_config.sed'   # Sed script to 'fix' the sshd config
         'pacman.conf.sh'    # Add an include for pacman.ash
@@ -80,7 +80,6 @@ package() {
     # Add the patches
     PATCHDIR="${pkgdir}/usr/share/ash-base"
     mkdir -p "${PATCHDIR}"
-    install -m0644 "${srcdir}/lynx.cfg.patch" "${PATCHDIR}/lynx.cfg.patch"
     install -m0644 "${srcdir}/hosts.file" "${PATCHDIR}/hosts.file"
     install -m0644 "${srcdir}/sshd_config.sed" \
                    "${PATCHDIR}/sshd_config.sed"
@@ -90,14 +89,13 @@ package() {
 }
 
 md5sums=('f54c2de99cc22d641b52bfde182e6b73'
-         '89b8c44e68ada826dc898d078edcf541'
+         '7da84d5f6dee8f0831c0dc6332cf5189'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
-         '9f87335751a337e4f8c47e3e292b6d3d'
+         '980a68bf472eabddb3cd64dbd2febc5e'
          'bb75d24376419f8261d47c705b12e0bc'
          'd7967ec5efc88b263e8ecbf0e5f87d2d'
          '86d7c0ff231e094ca30ec0a26feaab2c'
-         '4756fc1616221f5cbe19478dee4b24fa'
          '11ac0c498dbb95cd6ad167c51062001e'
          'd7967ec5efc88b263e8ecbf0e5f87d2d'
          'a9851172265a0c39d503a5bcb0e179c2'
