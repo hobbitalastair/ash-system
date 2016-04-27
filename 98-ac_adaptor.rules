@@ -1,0 +1,3 @@
+# AC connected/disconnected rules.
+SUBSYSTEM=="power_supply", KERNEL=="ACAD", ATTR{online}=="0", ATTR{type}=="Mains", RUN+="ac_adaptor disconnected"
+SUBSYSTEM=="power_supply", KERNEL=="ACAD", ATTR{online}=="1", ATTR{type}=="Mains", RUN+="ac_adaptor connected"

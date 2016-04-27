@@ -1,0 +1,2 @@
+# PCI powersaving!
+ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
