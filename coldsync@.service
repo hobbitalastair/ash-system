@@ -6,6 +6,7 @@ Description=Coldsync on %I
 
 [Service]
 Type=simple
+Group=palm
 # TODO: Currently this rapidly restarts...
 #       This appears to be a limitation of coldsync.
 ExecStart=/usr/bin/coldsync -md -p "%I"

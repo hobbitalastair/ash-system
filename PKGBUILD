@@ -15,8 +15,8 @@ source=('80-palm.rules'
         'coldsync.conf'
         'set_sys_time.pl'
         'palms')
-md5sums=('a65f9516b05f4d9a14d0da663daac968'
-         'b691767ad26637a50cd1f9ade81ff419'
+md5sums=('bf76ba9d9a119bf2c28b03d58337b683'
+         '5e72eac87230c956493a1a7cedaf0d97'
          '3f8bc0bd7653c76ca9add31ef456532b'
          '9cb075830dd796597964718bd2f2c34b'
          '106223074486301c70329459aec5683d')
