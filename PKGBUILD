@@ -1,24 +1,20 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.32
+pkgver=0.2.33
 pkgrel=2
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
-license=('GPL')
+license=('MIT')
 # Install needed packages
 depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
-         'vim' 'lynx' 'less' 'git' 'openssh' 'sudo' 'alsa-utils' 'unzip' 
+         'vim' 'lynx' 'less' 'git' 'openssh' 'sudo' 'alsa-utils' 'unzip'
          'keychain' 'teapot' 'bash-completion' 'hunspell' 'hunspell-en' 
-         # Userspace tools
-         'immix' # Automation of some tasks
-         'xdg-user-dirs' # Uhh...?
-         'ash-security' # Security stuff - sudoers config, etc...
-         'patchman' 'perl' # Required for this package
          'snownews' 'vorbis-tools'
+         'immix'        # Automation of some tasks
+         'ash-security' # Security stuff - sudoers config, etc...
+         'patchman'
+         'update-man'   # Use hooks instead.
         )
-
-# Remove unwanted packages.
-conflicts=('nano' 's-nail')
 # Start the various services and add ash (the user)
 install='install.sh'
 # Files to add
@@ -31,7 +27,6 @@ source=( # New files
         'colours.ash'   # Colours for ls --color
 
         # Unison files
-        'sshd_config.sed'   # Sed script to allow the user environment
         'environment.file'  # Environment file (patch)
 
         # Patches
@@ -41,6 +36,17 @@ source=( # New files
         'bash.bashrc.file'  # File to remove bash stuff
        )
 backup=("etc/sudoers.d/ash-base")
+md5sums=('f54c2de99cc22d641b52bfde182e6b73'
+         'c1ff12f44fbaf2e3483a90f249183ede'
+         '9ab88e97da626fd04501ad1c486deed9'
+         'bd4da5f2283ef3284ce21e55faee1b51'
+         '980a68bf472eabddb3cd64dbd2febc5e'
+         'bb75d24376419f8261d47c705b12e0bc'
+         '86d7c0ff231e094ca30ec0a26feaab2c'
+         '11ac0c498dbb95cd6ad167c51062001e'
+         'd7967ec5efc88b263e8ecbf0e5f87d2d'
+         'a9851172265a0c39d503a5bcb0e179c2'
+         'fec2b1c71d884437d7cc96ba9ad34d53')
 
 package() {
     cd "${srcdir}"
@@ -87,16 +93,3 @@ package() {
     install -m0644 "${srcdir}/pacman.conf.sh" "${PATCHDIR}/pacman.conf.sh"
     install -m0644 "${srcdir}/bash.bashrc.file" "${PATCHDIR}/bash.bashrc.file"
 }
-
-md5sums=('f54c2de99cc22d641b52bfde182e6b73'
-         '7da84d5f6dee8f0831c0dc6332cf5189'
-         '9ab88e97da626fd04501ad1c486deed9'
-         'bd4da5f2283ef3284ce21e55faee1b51'
-         '980a68bf472eabddb3cd64dbd2febc5e'
-         'bb75d24376419f8261d47c705b12e0bc'
-         'd7967ec5efc88b263e8ecbf0e5f87d2d'
-         '86d7c0ff231e094ca30ec0a26feaab2c'
-         '11ac0c498dbb95cd6ad167c51062001e'
-         'd7967ec5efc88b263e8ecbf0e5f87d2d'
-         'a9851172265a0c39d503a5bcb0e179c2'
-         'fec2b1c71d884437d7cc96ba9ad34d53')
