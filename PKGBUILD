@@ -1,12 +1,12 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=vostro1510
-pkgver=0.0.1
+pkgver=0.0.2
 pkgrel=1
 pkgdesc="Vostro 1510-specific configuration"
 arch=('any')
 license=('GPL')
 # Install needed packages
-depends=('powersave' 'triggerhappy-git')
+depends=('powersave' 'triggerhappy-git' 'dhcpcd' 'wpa_supplicant')
 
 # Files to add
 source=( # New files
@@ -29,5 +29,10 @@ package() {
         ln -s "/usr/lib/systemd/system/${SERVICE}.service" \
       "${pkgdir}/etc/systemd/system/multi-user.target.wants/${SERVICE}.service"
     done
+
+    # Re-add the dhcpcd hook for wpa_supplicant.
+    mkdir -p "${pkgdir}/usr/lib/dhcpcd/dhcpcd-hooks"
+    ln -s "/usr/share/dhcpcd/hooks/10-wpa_supplicant" \
+        "${pkgdir}/usr/lib/dhcpcd/dhcpcd-hooks/10-wpa_supplicant"
 }
 
