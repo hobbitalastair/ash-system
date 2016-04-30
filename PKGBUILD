@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.2.33
+pkgver=0.3.1
 pkgrel=2
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
@@ -19,7 +19,7 @@ depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
 install='install.sh'
 # Files to add
 source=( # New files
-        'vim.config'    # Global vim config
+        'vim.conf'      # Global vim config
         'terminal.sh'   # Env variables and alias for ash
         'sudoers.ash'   # Sudoers config for ash
         'gitconfig'     # Global git config
@@ -36,8 +36,8 @@ source=( # New files
         'bash.bashrc.file'  # File to remove bash stuff
        )
 backup=("etc/sudoers.d/ash-base")
-md5sums=('f54c2de99cc22d641b52bfde182e6b73'
-         'c1ff12f44fbaf2e3483a90f249183ede'
+md5sums=('b4f68462a951e88f49a165f30b4a6e21'
+         '506d5dc5b21e4ae7d4da2bca2301651d'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
          '980a68bf472eabddb3cd64dbd2febc5e'
@@ -52,7 +52,7 @@ package() {
     cd "${srcdir}"
 
     # Add vim's config
-    install -Dm0644 "${srcdir}/vim.config" "${pkgdir}/etc/vim.conf"
+    install -Dm0644 "${srcdir}/vim.conf" "${pkgdir}/etc/vim.conf"
     # Add gitconfig
     install -Dm0644 "${srcdir}/gitconfig" "${pkgdir}/etc/gitconfig"
     # Add the default profile file

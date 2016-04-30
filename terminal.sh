@@ -25,7 +25,6 @@ alias man="man --html"
 
 # Main application aliases
 alias lynx="lynx -book -accept_all_cookies"
-alias vim="vim -u /etc/vim.conf -i $XDG_DATA_HOME/vim.info"
 alias unison="unison -logfile ${XDG_CACHE_HOME}/unison.log"
 alias pylint="pylint --rcfile=/etc/pylint.config"
 alias pacman="pacman --color=always"
@@ -47,6 +46,9 @@ export UNISONBACKUPDIR="$XDG_DATA_HOME/unison/backups"
 
 # Lynx config.
 export LYNX_CFG="${XDG_CONFIG_HOME:-${HOME}/.config}/lynx.conf"
+
+# Vim config.
+export VIMINIT='source /etc/vim.conf'
 
 
 #
