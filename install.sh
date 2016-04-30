@@ -97,10 +97,6 @@ post_install() {
          "hostname file"
 
     # Patches
-    patchman -A "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck && \
-        echo '   Patched /etc/lynx.cfg' || \
-        echo '-> Patching /etc/lynx.cfg failed!'
-
     patchman -A "/etc/hosts" "${PATCHDIR}/hosts.file" --nocheck && \
         echo '   Patched /etc/hosts' || \
         echo '-> Patching /etc/hosts failed!'
@@ -140,15 +136,6 @@ pre_upgrade() {
 ## arg 1:  the new package version
 ## arg 2:  the old package version
 post_upgrade() {
-
-    # Lynx config patch
-    if [ $(vercmp $2 0.1.0) -lt 1 ]; then
-        patchman -A "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck && \
-            echo '   Patched /etc/lynx.cfg' || \
-            echo '-> Patching /etc/lynx.cfg failed!'
-    else
-        patchman -U "/etc/lynx.cfg" "${PATCHDIR}/lynx.cfg.patch" --nocheck
-    fi
 
     # Hostnames patch (TODO: Implement a DNS server)
     if [ $(vercmp $2 0.2.4) -lt 1 ]; then
