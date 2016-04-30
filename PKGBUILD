@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.3.2
+pkgver=0.3.4
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
@@ -37,14 +37,14 @@ source=( # New files
        )
 backup=("etc/sudoers.d/ash-base")
 md5sums=('d40be3b76df1ebf3061c170c20fd4f6e'
-         'c7ab4ab5b3960af75a321f4938b11931'
+         '1b700e9e9ca710bd74ac52b73cdccb97'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
          '980a68bf472eabddb3cd64dbd2febc5e'
          'bb75d24376419f8261d47c705b12e0bc'
          '86d7c0ff231e094ca30ec0a26feaab2c'
          'c2bbef3a04bf8421dad65b0123433597'
-         'ec28d1f2b9ceb3eb7e48f4a884998172'
+         '6406220887fef61bd8c2b8265d8b0985'
          'a9851172265a0c39d503a5bcb0e179c2'
          'fec2b1c71d884437d7cc96ba9ad34d53')
 
