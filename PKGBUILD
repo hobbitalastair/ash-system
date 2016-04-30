@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
 pkgver=0.3.1
-pkgrel=2
+pkgrel=4
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('MIT')
@@ -36,7 +36,7 @@ source=( # New files
         'bash.bashrc.file'  # File to remove bash stuff
        )
 backup=("etc/sudoers.d/ash-base")
-md5sums=('b4f68462a951e88f49a165f30b4a6e21'
+md5sums=('d40be3b76df1ebf3061c170c20fd4f6e'
          '506d5dc5b21e4ae7d4da2bca2301651d'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
@@ -68,7 +68,8 @@ package() {
 
 
     # Add the skel files
-    SKEL=".ssh .config .local .config/unison .local/share/unison/backups"
+    SKEL=".ssh .config .local .config/unison .local/share/unison/backups 
+        .local/share/vim"
     for DIR in $SKEL; do
         mkdir -p "${pkgdir}/etc/skel/$DIR"
     done
