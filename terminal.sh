@@ -11,6 +11,31 @@ export XDG_CACHE_HOME="$HOME/.cache"
 
 
 #
+# Environment variables
+#
+
+# Application environment variables
+export HISTFILE="$XDG_DATA_HOME/bash.history"
+export LESSHISTFILE="$XDG_DATA_HOME/less.history"
+
+export UNISON="$XDG_CONFIG_HOME/unison"
+export UNISONBACKUPDIR="$XDG_DATA_HOME/unison/backups"
+
+# Lynx config.
+export LYNX_CFG="${XDG_CONFIG_HOME}/lynx.conf"
+
+# Vim config.
+export VIMINIT='source /etc/vim.conf'
+
+# I sometimes have to use subversion...
+export SUBVERSION_HOME="${XDG_CONFIG_HOME}/subversion"
+
+# SSH workarounds.
+export SSH_CONFIG="-F '${XDG_CONFIG_HOME}/ssh/config'"
+export GIT_SSH_COMMAND="ssh ${SSH_CONFIG}"
+
+
+#
 # Program alias
 #
 
@@ -31,24 +56,7 @@ alias pacman="pacman --color=always"
 alias dmesg="dmesg -H --color=always"
 alias hunspell="hunspell -p ${XDG_DATA_HOME}/hunspell/${LANG}.dict"
 alias snownews="snownews --update"
-
-
-#
-# Environment variables
-#
-
-# Application environment variables
-export HISTFILE="$XDG_DATA_HOME/bash.history"
-export LESSHISTFILE="$XDG_DATA_HOME/less.history"
-
-export UNISON="$XDG_CONFIG_HOME/unison"
-export UNISONBACKUPDIR="$XDG_DATA_HOME/unison/backups"
-
-# Lynx config.
-export LYNX_CFG="${XDG_CONFIG_HOME:-${HOME}/.config}/lynx.conf"
-
-# Vim config.
-export VIMINIT='source /etc/vim.conf'
+alias ssh="ssh ${SSH_CONFIG}"
 
 
 #
@@ -67,18 +75,15 @@ ps_memory () {
 
 # Start the keychain
 # Cannot do this in an alias - ssh is not called by git...
-if [ -e "$(echo ~/.ssh/id_* | sed -e 's: .*::')" ]; then
-
-    # Generate a list of keys
-    for id in ~/.ssh/id_*; do
-        if [ "$(echo ${id} | sed /id_.*.pub/d)" ]; then
-            keylist="${keylist} $(basename ${id})"
-        fi
-    done
-
-    eval $(keychain --eval --dir ${XDG_CONFIG_HOME}/keychain --agents ssh -Q \
-                    -q ${keylist})
-fi
+keylist=""
+for id in "${XDG_CONFIG_HOME}/ssh/"*.pub; do
+    if [ -f "${id}" ]; then
+        # We have a key file!
+        keylist+=" ${id%.pub}"
+    fi
+done
+eval "$(keychain --eval --dir "${XDG_CONFIG_HOME}/keychain" \
+    --agents ssh -Q -q ${keylist})"
 
 # Add my own colors
 eval $(dircolors --sh /etc/dircolours.conf)
