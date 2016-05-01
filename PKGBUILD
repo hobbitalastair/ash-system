@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.3.4
+pkgver=0.3.5
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
@@ -25,6 +25,7 @@ source=( # New files
         'gitconfig'     # Global git config
         'pacman.ash'    # My personal additions to pacman's default config
         'colours.ash'   # Colours for ls --color
+        'startup.py'    # Python interactive startup code
 
         # Unison files
         'environment.file'  # Environment file (patch)
@@ -37,11 +38,12 @@ source=( # New files
        )
 backup=("etc/sudoers.d/ash-base")
 md5sums=('d40be3b76df1ebf3061c170c20fd4f6e'
-         '1b700e9e9ca710bd74ac52b73cdccb97'
+         '3bbc125f4e203743a8efd919a9698eaf'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
          '980a68bf472eabddb3cd64dbd2febc5e'
          'bb75d24376419f8261d47c705b12e0bc'
+         '7e938fd738f29ab2fa2540e631a078ef'
          '86d7c0ff231e094ca30ec0a26feaab2c'
          'c2bbef3a04bf8421dad65b0123433597'
          '6406220887fef61bd8c2b8265d8b0985'
@@ -65,6 +67,8 @@ package() {
     install -Dm0440 "${srcdir}/sudoers.ash" "${pkgdir}/etc/sudoers.d/ash-base"
     # Add the pacman.conf additonal file
     install -Dm0644 "${srcdir}/pacman.ash" "${pkgdir}/etc/pacman.d/pacman.ash"
+    # Add the python startup code.
+    install -Dm0644 "${srcdir}/startup.py" "${pkgdir}/etc/python/startup.py"
 
 
     # Add the skel files

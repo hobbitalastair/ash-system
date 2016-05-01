@@ -37,6 +37,10 @@ export GIT_SSH_COMMAND="ssh ${SSH_CONFIG}"
 # GNUPG is used by pacman, among others.
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg/"
 
+# Python will write a .python_history file; use the new startup program to
+# avoid that.
+export PYTHONSTARTUP="/etc/python/startup.py"
+
 #
 # Program alias
 #
