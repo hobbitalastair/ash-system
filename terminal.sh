@@ -57,12 +57,14 @@ alias man="man --html"
 # Main application aliases
 alias lynx="lynx -book -accept_all_cookies"
 alias unison="unison -logfile ${XDG_CACHE_HOME}/unison.log"
+alias unison-2.40="unison-2.40 -logfile ${XDG_CACHE_HOME}/unison-2.40.log"
 alias pylint="pylint --rcfile=/etc/pylint.config"
 alias pacman="pacman --color=always"
 alias dmesg="dmesg -H --color=always"
 alias hunspell="hunspell -p ${XDG_DATA_HOME}/hunspell/${LANG}.dict"
 alias snownews="snownews --update"
 alias ssh="ssh ${SSH_CONFIG}"
+alias scp="scp ${SSH_CONFIG}"
 
 
 #

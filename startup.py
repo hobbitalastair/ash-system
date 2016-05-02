@@ -18,18 +18,12 @@ histfile = os.path.join(xdg_data_home, "python.history")
 # Open/create the file.
 try:
     readline.read_history_file(histfile)
-    history_len = readline.get_history_length()
+    readline.set_history_length(HISTLENGTH)
+    print("Read the history file")
 except FileNotFoundError:
     open(histfile, 'wb').close()
-    history_len = 0
-
-def save(prev_history_len, histfile):
-    """ Append new history onto the file. """
-    new_history_len = readline.get_history_length()
-    # We cap the history length.
-    readline.set_history_length(HISTLENGTH)
-    readline.append_history_file(new_history_len - prev_history_len, \
-            histfile)
+    readline.add_history("quit()")
+    print("Created a new history file")
 
 # Register the handler.
-atexit.register(save, history_len, histfile)
+atexit.register(readline.write_history_file, histfile)
