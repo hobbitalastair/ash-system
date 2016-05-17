@@ -1,12 +1,12 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.3.7
+pkgver=0.3.9
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('MIT')
 # Install needed packages
-depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
+depends=(
          'vim' 'lynx' 'less' 'git' 'openssh' 'sudo' 'alsa-utils' 'unzip'
          'keychain' 'teapot' 'bash-completion' 'hunspell' 'hunspell-en' 
          'snownews' 'vorbis-tools'
@@ -38,7 +38,7 @@ source=( # New files
        )
 backup=("etc/sudoers.d/ash-base")
 md5sums=('d40be3b76df1ebf3061c170c20fd4f6e'
-         'c0fe886a718127a38ad5af4f2404e84d'
+         '607da7b19221f61a72650e1bb07ff3a8'
          '9ab88e97da626fd04501ad1c486deed9'
          'bd4da5f2283ef3284ce21e55faee1b51'
          '980a68bf472eabddb3cd64dbd2febc5e'

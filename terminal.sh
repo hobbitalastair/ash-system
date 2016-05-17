@@ -128,7 +128,7 @@ get_prompt () {
         PR="\033[31m${LAST_CMD} \$"
     fi
 
-    printf "${USER}\033[01m@\033[39;m$(hostname) \033[33m$(basename $(pwd))\033[00m ${PR}\033[00m "
+    printf "${USER}\033[01m@\033[39;m$(hostname) \033[33m$(basename "$(pwd)")\033[00m ${PR}\033[00m "
 }
 
 # Only export the prompt if in an interactive shell
