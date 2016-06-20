@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.3.9
+pkgver=0.3.11
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
@@ -13,7 +13,6 @@ depends=(
          'immix'        # Automation of some tasks
          'ash-security' # Security stuff - sudoers config, etc...
          'patchman'
-         'update-man'   # Use hooks instead.
         )
 # Start the various services and add ash (the user)
 install='install.sh'
@@ -26,6 +25,7 @@ source=( # New files
         'pacman.ash'    # My personal additions to pacman's default config
         'colours.ash'   # Colours for ls --color
         'startup.py'    # Python interactive startup code
+        'size.conf'     # journald options to limit size
 
         # Unison files
         'environment.file'  # Environment file (patch)
@@ -36,7 +36,6 @@ source=( # New files
         'pacman.conf.sh'    # Add an include for pacman.ash
         'bash.bashrc.file'  # File to remove bash stuff
        )
-backup=("etc/sudoers.d/ash-base")
 md5sums=('d40be3b76df1ebf3061c170c20fd4f6e'
          '607da7b19221f61a72650e1bb07ff3a8'
          '9ab88e97da626fd04501ad1c486deed9'
@@ -44,6 +43,7 @@ md5sums=('d40be3b76df1ebf3061c170c20fd4f6e'
          '980a68bf472eabddb3cd64dbd2febc5e'
          'bb75d24376419f8261d47c705b12e0bc'
          '2448318f3167cb0ccfa72abbd32dd5de'
+         '372f1f188276ac5881f315169e3c4e12'
          '86d7c0ff231e094ca30ec0a26feaab2c'
          'c2bbef3a04bf8421dad65b0123433597'
          '6406220887fef61bd8c2b8265d8b0985'
@@ -69,6 +69,9 @@ package() {
     install -Dm0644 "${srcdir}/pacman.ash" "${pkgdir}/etc/pacman.d/pacman.ash"
     # Add the python startup code.
     install -Dm0644 "${srcdir}/startup.py" "${pkgdir}/etc/python/startup.py"
+    # Add the journald config snippet.
+    install -Dm0644 "${srcdir}/size.conf" \
+        "${pkgdir}/etc/systemd/journald.conf.d/size.conf"
 
 
     # Add the skel files
