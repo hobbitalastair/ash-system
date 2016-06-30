@@ -9,7 +9,8 @@ license=('MIT')
 depends=('python' 'python-requests')
 # Files to add
 source=('wikia.py' 'xwing-mirror.service')
-md5sums=('d40be3b76df1ebf3061c170c20fd4f6e')
+md5sums=('866eb651faa1c57a8d69e528185f8974'
+         '07c7939b6df00fe16e6913793148b7a0')
 
 package() {
     cd "${srcdir}"
@@ -21,6 +22,7 @@ package() {
         "${pkgdir}/usr/lib/systemd/system/xwing-mirror.service"
 
     # Enable the service.
+    mkdir -p "${pkgdir}/etc/systemd/system/multi-user.target.wants"
     ln -s "/usr/lib/systemd/system/xwing-mirror.service" \
       "${pkgdir}/etc/systemd/system/multi-user.target.wants/xwing-mirror.service"
 }

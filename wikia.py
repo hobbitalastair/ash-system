@@ -243,7 +243,6 @@ if __name__ == "__main__":
             exit(0)
         elif arg in ('--ip', '--port'):
             if len(sys.argv) > i + 1:
-                i += 2
                 if arg[2:] == 'ip':
                     IP = sys.argv[i + 1]
                 elif arg[2:] == 'port':
@@ -252,6 +251,7 @@ if __name__ == "__main__":
                     except ValueError:
                         print("Expected an int for the port, got {}".format( \
                                 sys.argv[i + 1]))
+                i += 2
             else:
                 print(usage)
                 print("Argument '{}' not followed by a value".format(arg))
