@@ -106,32 +106,21 @@ fi
 # Prompt...
 #
 
-get_prompt () {
-    # Print out a prompt
-
-    LAST_CMD=$?
-
-    # Setup the user colour
-    if [ "$(whoami)" = "root" ]; then
-        user_colour='41;30' # Set the background to red
-    elif ! [ "$(whoami)" = "$(basename $HOME)" ]; then
-        user_colour=31 # Set user to be red
-    else
-        user_colour='34;01' # Set the user to blue
-    fi
-
-    USER="\033[${user_colour}m$(whoami)\033[00m"
-
-    if [ "${LAST_CMD}" = 0 ]; then
-        PR="\033[36m\$"
-    else
-        PR="\033[31m${LAST_CMD} \$"
-    fi
-
-    printf "${USER}\033[01m@\033[39;m$(hostname) \033[33m$(basename "$(pwd)")\033[00m ${PR}\033[00m "
-}
-
 # Only export the prompt if in an interactive shell
-if [ -z "$(echo "$PS1" | grep '*i*')" ]; then
-    export PS1='$(get_prompt)'
+if [ -n "$PS1" ]; then
+    if [ "$(whoami)" == "root" ]; then
+        user_col='41;30' # Set the background to be red.
+    else
+        user_col='34;01' # Set the foreground to be blue.
+    fi
+    PS1="\[\033[${user_col}m\]\u\[\033[00;01m\]"
+    unset user_col
+    PS1+='@\[\033[39;m\]\h \[\033[33m\]\W\[\033[00m\] '
+    PS1+='$(LAST="$?"
+        if [ "${LAST}" -ne 0 ]; then
+            printf "\[\033[31m\]%s " "${LAST}"
+        else
+            printf "\[\033[36m\]"
+        fi)\$\[\033[00m\] '
+    export PS1
 fi
