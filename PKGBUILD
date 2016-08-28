@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=vostro1510
-pkgver=0.0.2
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="Vostro 1510-specific configuration"
 arch=('any')
@@ -9,10 +9,11 @@ license=('GPL')
 depends=('powersave' 'triggerhappy-git' 'dhcpcd' 'wpa_supplicant')
 
 # Files to add
-source=( # New files
-        'multimedia.conf' # Triggerhappy multimedia key config
+source=('multimedia.conf' # Triggerhappy multimedia key config
+        '99-backlight.rules' # Udev rules for backlight
        )
-md5sums=('2d5c3cf973f796109ff6ac57bb0c3479')
+md5sums=('2d5c3cf973f796109ff6ac57bb0c3479'
+         'f3c0870e81f88af8792b5deea9024415')
 backup=("etc/triggerhappy/multimedia.conf")
 
 package() {
@@ -34,5 +35,8 @@ package() {
     mkdir -p "${pkgdir}/usr/lib/dhcpcd/dhcpcd-hooks"
     ln -s "/usr/share/dhcpcd/hooks/10-wpa_supplicant" \
         "${pkgdir}/usr/lib/dhcpcd/dhcpcd-hooks/10-wpa_supplicant"
-}
 
+    # Fix the backlight.
+    install -Dm0644 "99-backlight.rules" \
+        "${pkgdir}/usr/lib/udev/rules.d/99-backlight.rules"
+}
