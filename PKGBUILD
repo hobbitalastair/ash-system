@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=vostro1510
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="Vostro 1510-specific configuration"
 arch=('any')
@@ -9,6 +9,7 @@ license=('GPL')
 depends=('powersave' 'triggerhappy-git' 'dhcpcd' 'wpa_supplicant')
 
 # Files to add
+install=install.sh
 source=('multimedia.conf' # Triggerhappy multimedia key config
         '99-backlight.rules' # Udev rules for backlight
        )
