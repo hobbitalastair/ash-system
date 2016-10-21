@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
 pkgver=0.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('MIT')
