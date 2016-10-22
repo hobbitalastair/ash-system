@@ -53,10 +53,11 @@ BLACKLIST_ATTRS = {
             'close',
             'WikiNav',
             'toc',
+            'wds-.*',
             ),
         }
 TAG_BLACKLIST = {'script', 'noscript', 'link', 'meta'}
-DATA_BLACKLIST = {'Wikia', 'Advertisement'}
+DATA_BLACKLIST = {'Wikia', 'Advertisement', 'Fandom'}
 
 
 class Tag:

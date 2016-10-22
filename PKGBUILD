@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=xwing
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
 pkgdesc="X-Wing wikia mirror"
 arch=('any')
@@ -9,7 +9,7 @@ license=('MIT')
 depends=('python' 'python-requests')
 # Files to add
 source=('wikia.py' 'xwing-mirror.service')
-md5sums=('866eb651faa1c57a8d69e528185f8974'
+md5sums=('26a732e5317d7d3426f61bdbd96d6ded'
          '07c7939b6df00fe16e6913793148b7a0')
 
 package() {
