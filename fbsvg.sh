@@ -12,5 +12,5 @@ fi
 
 outpng="$(mktemp "${TMPDIR:-/tmp}/svg-XXXX.png")"
 rsvg-convert "$@" > "${outpng}"
-fbv "${outpng}"
+fbv -f "${outpng}"
 
