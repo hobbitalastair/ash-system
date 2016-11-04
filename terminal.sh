@@ -38,6 +38,9 @@ export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg/"
 # avoid that.
 export PYTHONSTARTUP="/etc/python/startup.py"
 
+# Wine needs an architecture and default prefix.
+export WINEPREFIX="${XDG_DATA_HOME}/wine"
+export WINEARCH="win32"
 
 #
 # Programs
@@ -59,7 +62,7 @@ eval "$(keychain --eval --dir "${XDG_CONFIG_HOME}/keychain" \
     eval $(dircolors --sh "${XDG_CONFIG_HOME}/dircolours.conf")
 
 # Load any personal config
-if [ -f "${XDG_CONFIG_HOME}/profile" ]; then
+if [ -r "${XDG_CONFIG_HOME}/profile" ]; then
     . "${XDG_CONFIG_HOME}/profile"
 fi
 
