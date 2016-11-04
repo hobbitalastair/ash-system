@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=framebuffer
-pkgver=0.3
+pkgver=0.4
 pkgrel=1
 pkgdesc="Framebuffer utilities for an Alastair Hughes system"
 arch=('any')
@@ -13,6 +13,7 @@ depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
         'vorbis-tools'
         'hunspell' 'hunspell-en'
         'mps-youtube' 'mpv' 'youtube-dl'
+        'texlive-core'
         )
 # Files to add
 source=('fbsvg.sh')
