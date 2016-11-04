@@ -21,7 +21,6 @@ depends=(
 install="install.sh"
 source=(
         'bash.bashrc'
-        'environment'
         'hosts'
         'sshd_config.patch'
         'vim.conf'
@@ -31,11 +30,10 @@ source=(
         'size.conf'
        )
 md5sums=('29bcdc481ca6cffd349b83dea9eb88f8'
-         '86d7c0ff231e094ca30ec0a26feaab2c'
          '09a7fd37a0cc4f07b5098bdfc4e7b93a'
          'dda6babbe7932766862de766a98dde11'
          'd40be3b76df1ebf3061c170c20fd4f6e'
-         'a178e5568c0deeee8a7d4be6ad4490b9'
+         'a4ad193301f4b97fbcf4d963693a2ec9'
          '3e703ec70db24a9ff0b90810d51be598'
          'ac538ff79175e897ed821f4cd49d5d74'
          '372f1f188276ac5881f315169e3c4e12')
@@ -46,7 +44,6 @@ package() {
     # Install the default patches - these need to be applied manually.
     patchpath="${pkgdir}/var/lib/patchman"
     install -Dm0644 "bash.bashrc" "${patchpath}/etc/bash.bashrc"
-    install -Dm0644 "environment" "${patchpath}/etc/environment"
     install -Dm0644 "hosts" "${patchpath}/etc/hosts"
     install -Dm0644 "sshd_config.patch" \
         "${patchpath}/etc/ssh/sshd_config/auth.patch"
@@ -75,7 +72,7 @@ package() {
     mkdir -p "${pkgdir}/etc/skel/.local/share/vim"
 
     # Enable the services
-    SERVICES="sshd dhcpcd systemd-timesyncd immix"
+    SERVICES="sshd dhcpcd systemd-timesyncd"
     mkdir -p "${pkgdir}/etc/systemd/system/multi-user.target.wants"
     for SERVICE in $SERVICES; do
         ln -s "/usr/lib/systemd/system/${SERVICE}.service" \

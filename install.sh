@@ -2,7 +2,6 @@
 
 force_update() {
     patchman.sh -r /etc/bash.bashrc
-    patchman.sh -r /etc/environment
     patchman.sh -r /etc/hosts
     patchman.sh -r /etc/ssh/sshd_config
 }

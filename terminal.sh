@@ -15,8 +15,8 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export HISTFILE="$XDG_DATA_HOME/bash.history"
 export LESSHISTFILE="$XDG_DATA_HOME/less.history"
 
-export UNISON="$XDG_CONFIG_HOME/unison"
-export UNISONBACKUPDIR="$XDG_DATA_HOME/unison/backups"
+export UNISON="${XDG_CONFIG_HOME}/unison"
+export UNISONBACKUPDIR="${XDG_DATA_HOME}/unison/backups"
 
 # Lynx config.
 export LYNX_CFG="${XDG_CONFIG_HOME}/lynx.conf"
@@ -34,8 +34,9 @@ export GIT_SSH_COMMAND="ssh -F '${XDG_CONFIG_HOME}/ssh/config'"
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg/"
 
 # Python will write a .python_history file; use the new startup program to
-# avoid that.
+# avoid that. Also, don't write byte code...
 export PYTHONSTARTUP="/etc/python/startup.py"
+export PYTHONDONTWRITEBYTECODE="True"
 
 # Wine needs an architecture and default prefix.
 export WINEPREFIX="${XDG_DATA_HOME}/wine"
