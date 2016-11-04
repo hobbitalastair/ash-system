@@ -6,7 +6,9 @@ pkgdesc="Vostro 1510-specific configuration"
 arch=('any')
 license=('GPL')
 # Install needed packages
-depends=('powersave' 'triggerhappy-git' 'dhcpcd' 'wpa_supplicant')
+depends=('powersave' 'triggerhappy-git' 'wpa_supplicant'
+        'intel-ucode'
+        )
 
 # Files to add
 install=install.sh
