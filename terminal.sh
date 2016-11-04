@@ -28,8 +28,7 @@ export VIMINIT='source /etc/vim.conf'
 export SUBVERSION_HOME="${XDG_CONFIG_HOME}/subversion"
 
 # SSH workarounds.
-export SSH_CONFIG="-F '${XDG_CONFIG_HOME}/ssh/config'"
-export GIT_SSH_COMMAND="ssh ${SSH_CONFIG}"
+export GIT_SSH_COMMAND="ssh -F '${XDG_CONFIG_HOME}/ssh/config'"
 
 # GNUPG is used by pacman, among others.
 export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg/"
