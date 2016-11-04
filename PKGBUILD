@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=dx2180
-pkgver=0.1.0
+pkgver=0.1
 pkgrel=1
 pkgdesc="dx2180-specific configuration"
 arch=('any')
@@ -13,6 +13,6 @@ package() {
     cd "${srcdir}"
 
     # Disable the PC speaker beep
-    mkdir -p "${pkgdir}/etc/modprobe.d/nobeep.conf"
+    mkdir -p "${pkgdir}/etc/modprobe.d/"
     printf 'blacklist pcspkr\n' > "${pkgdir}/etc/modprobe.d/nobeep.conf"
 }
