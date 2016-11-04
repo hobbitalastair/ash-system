@@ -1,5 +1,5 @@
 # Python startup code for interactive sessions.
-# Based of code in the documentation for the readline module.
+# Based off code in the documentation for the readline module.
 
 import atexit
 import os
