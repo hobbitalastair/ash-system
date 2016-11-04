@@ -35,10 +35,9 @@ md5sums=('29bcdc481ca6cffd349b83dea9eb88f8'
          '09a7fd37a0cc4f07b5098bdfc4e7b93a'
          'dda6babbe7932766862de766a98dde11'
          'd40be3b76df1ebf3061c170c20fd4f6e'
-         '54dc045d5fd51e0dc85d7e976895825a'
+         'dd0092015f8a3484860179a9ab4f0968'
          '3e703ec70db24a9ff0b90810d51be598'
-         'bb75d24376419f8261d47c705b12e0bc'
-         '2448318f3167cb0ccfa72abbd32dd5de'
+         'ac538ff79175e897ed821f4cd49d5d74'
          '372f1f188276ac5881f315169e3c4e12')
 
 package() {
