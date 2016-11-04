@@ -11,13 +11,13 @@ depends=(
          'git'
          'openssh'
          'sudo'
-         'unzip'
          'keychain'
          'bash-completion'
          'immix'
-         'ash-security'
          'patchman'
         )
+conflicts=('ash-security')
+replaces=('ash-security')
 install="install.sh"
 source=(
         'bash.bashrc'
@@ -28,15 +28,17 @@ source=(
         'sudoers.ash'
         'startup.py'
         'size.conf'
+        'iptables.rules'
        )
-md5sums=('29bcdc481ca6cffd349b83dea9eb88f8'
+md5sums=('55535648409ee99d65c73d0bc654578d'
          '09a7fd37a0cc4f07b5098bdfc4e7b93a'
          'dda6babbe7932766862de766a98dde11'
          'd40be3b76df1ebf3061c170c20fd4f6e'
          'a4ad193301f4b97fbcf4d963693a2ec9'
          '3e703ec70db24a9ff0b90810d51be598'
          'ac538ff79175e897ed821f4cd49d5d74'
-         '372f1f188276ac5881f315169e3c4e12')
+         '372f1f188276ac5881f315169e3c4e12'
+         'e06b9870ca71120a07b7cd3121761d0b')
 
 package() {
     cd "${srcdir}"
@@ -64,6 +66,7 @@ package() {
     install -Dm0644 "startup.py" "${pkgdir}/etc/python/startup.py"
     install -Dm0644 "size.conf" \
         "${pkgdir}/etc/systemd/journald.conf.d/size.conf"
+    install -Dm0640 "iptables.rules" "${pkgdir}/etc/iptables/iptables.rules"
 
     # Add the skel files
     mkdir -p "${pkgdir}/etc/skel/.config"
@@ -72,7 +75,7 @@ package() {
     mkdir -p "${pkgdir}/etc/skel/.local/share/vim"
 
     # Enable the services
-    SERVICES="sshd dhcpcd systemd-timesyncd"
+    SERVICES="sshd dhcpcd systemd-timesyncd iptables"
     mkdir -p "${pkgdir}/etc/systemd/system/multi-user.target.wants"
     for SERVICE in $SERVICES; do
         ln -s "/usr/lib/systemd/system/${SERVICE}.service" \
