@@ -1,6 +1,3 @@
-# Terminal profile file
-# Author: Alastair Hughes <hobbitalastair at yandex dot com>
-
 #
 # Base directory specifications
 #
@@ -41,48 +38,12 @@ export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg/"
 # avoid that.
 export PYTHONSTARTUP="/etc/python/startup.py"
 
-#
-# Program alias
-#
-
-# Common shell command aliass
-alias rm="rm -i"
-alias mv="mv -i"
-alias cp="cp -i"
-alias ls="ls --color"
-alias less="less -FR" # Add colour support, and quitting if the output is short
-alias grep="grep --color=always"
-alias man="man --html"
-
-# Main application aliases
-alias lynx="lynx -book -accept_all_cookies"
-alias unison="unison -logfile ${XDG_CACHE_HOME}/unison.log"
-alias unison-2.40="unison-2.40 -logfile ${XDG_CACHE_HOME}/unison-2.40.log"
-alias pylint="pylint --rcfile=/etc/pylint.config"
-alias pacman="pacman --color=always"
-alias dmesg="dmesg -H --color=always"
-alias hunspell="hunspell -p ${XDG_DATA_HOME}/hunspell/${LANG}.dict"
-alias snownews="snownews --update"
-alias ssh="ssh ${SSH_CONFIG}"
-alias scp="scp ${SSH_CONFIG}"
-
-
-#
-# Functions
-#
-
-ps_memory () {
-    # Output the process's memory use (from ps)
-    ps -v | grep -e "$1"
-}
-
 
 #
 # Programs
 #
 
-# Start the keychain
-# Cannot do this in an alias - ssh is not called by git...
+# Start the keychain at login.
 keylist=""
 for id in "${XDG_CONFIG_HOME}/ssh/"*.pub; do
     if [ -f "${id}" ]; then
@@ -94,7 +55,8 @@ eval "$(keychain --eval --dir "${XDG_CONFIG_HOME}/keychain" \
     --agents ssh -Q -q ${keylist})"
 
 # Add my own colors
-eval $(dircolors --sh /etc/dircolours.conf)
+[ -r "${XDG_CONFIG_HOME}/dircolours.conf" ] && \
+    eval $(dircolors --sh "${XDG_CONFIG_HOME}/dircolours.conf")
 
 # Load any personal config
 if [ -f "${XDG_CONFIG_HOME}/profile" ]; then
@@ -103,24 +65,21 @@ fi
 
 
 #
-# Prompt...
+# Prompt
 #
 
-# Only export the prompt if in an interactive shell
-if [ -n "$PS1" ]; then
-    if [ "$(whoami)" == "root" ]; then
-        user_col='41;30' # Set the background to be red.
-    else
-        user_col='34;01' # Set the foreground to be blue.
-    fi
-    PS1="\[\033[${user_col}m\]\u\[\033[00;01m\]"
-    unset user_col
-    PS1+='@\[\033[39;m\]\h \[\033[33m\]\W\[\033[00m\] '
-    PS1+='$(LAST="$?"
-        if [ "${LAST}" -ne 0 ]; then
-            printf "\[\033[31m\]%s " "${LAST}"
-        else
-            printf "\[\033[36m\]"
-        fi)\$\[\033[00m\] '
-    export PS1
+if [ "$(whoami)" == "root" ]; then
+    user_col='41;30' # Set the background to be red.
+else
+    user_col='34;01' # Set the foreground to be blue.
 fi
+PS1="\[\033[${user_col}m\]\u\[\033[00;01m\]"
+unset user_col
+PS1+='@\[\033[39;m\]\h \[\033[33m\]\W\[\033[00m\] '
+PS1+='$(LAST="$?"
+    if [ "${LAST}" -ne 0 ]; then
+        printf "\[\033[31m\]%s " "${LAST}"
+    else
+        printf "\[\033[36m\]"
+    fi)\$\[\033[00m\] '
+export PS1

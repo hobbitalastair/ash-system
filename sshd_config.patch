@@ -1,0 +1,12 @@
+43c43
+< #PermitRootLogin prohibit-password
+---
+> PermitRootLogin no
+53c53
+< AuthorizedKeysFile	.ssh/authorized_keys
+---
+> AuthorizedKeysFile .config/ssh/authorized_keys
+71c71
+< #PasswordAuthentication yes
+---
+> PasswordAuthentication no
