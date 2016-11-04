@@ -12,6 +12,7 @@ depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
         'alsa-utils'
         'vorbis-tools'
         'hunspell' 'hunspell-en'
+        'mps-youtube' 'mpv' 'youtube-dl'
         )
 # Files to add
 source=('fbsvg.sh')
