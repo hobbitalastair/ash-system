@@ -1,15 +1,17 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-desktop
 pkgver=0.7
-pkgrel=4
+pkgrel=5
 pkgdesc="Basic desktop setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
 # Install needed packages
+install=install.sh
 depends=('chromium' 'matchbox-window-manager' 'gnome-themes-standard'
         'oxygen-icons' 'xorg-server' 'xorg-xinit' 'pepper-flash' 'xclip'
+        'redshift' 'tigervnc' 'rdesktop'
         'cups' 'ghostscript' 'foo2zjs'
-        'redshift')
+        'rct')
 source=('gtkrc-2'
         'desktop.sh')
 md5sums=('050d0a2ed0ecb66bea06db9692bfc549'
@@ -23,5 +25,8 @@ package() {
 
     # Desktop profile.
     install -Dm0644 "${srcdir}/desktop.sh" "${pkgdir}/etc/profile.d/desktop.sh"
-}
 
+    # Set the default papersize.
+    mkdir -p "${pkgdir}/var/lib/patchman/etc/"
+    printf 'A4\n' > "${pkgdir}/var/lib/patchman/etc/papersize"
+}
