@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
 pkgver=0.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('MIT')
@@ -34,7 +34,7 @@ md5sums=('29bcdc481ca6cffd349b83dea9eb88f8'
          '09a7fd37a0cc4f07b5098bdfc4e7b93a'
          '3d111c66c4fb73ecdf70ce03aafba195'
          'd40be3b76df1ebf3061c170c20fd4f6e'
-         'a4ad193301f4b97fbcf4d963693a2ec9'
+         'f930e26ab28323ebc293dd0724ad4636'
          '3e703ec70db24a9ff0b90810d51be598'
          'ac538ff79175e897ed821f4cd49d5d74'
          '372f1f188276ac5881f315169e3c4e12'

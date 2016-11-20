@@ -18,6 +18,8 @@ export LESSHISTFILE="$XDG_DATA_HOME/less.history"
 export UNISON="${XDG_CONFIG_HOME}/unison"
 export UNISONBACKUPDIR="${XDG_DATA_HOME}/unison/backups"
 
+export INPUTRC="${XDG_CONFIG_HOME}/input.conf"
+
 # Lynx config.
 export LYNX_CFG="${XDG_CONFIG_HOME}/lynx.conf"
 
