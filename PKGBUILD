@@ -1,30 +1,44 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=vostro1510
-pkgver=0.1.1
+pkgver=0.1.5
 pkgrel=1
 pkgdesc="Vostro 1510-specific configuration"
 arch=('any')
 license=('GPL')
 # Install needed packages
-depends=('powersave' 'triggerhappy-git' 'wpa_supplicant'
-        'intel-ucode'
+depends=('powersave' 'triggerhappy-git' 'xorg-xrandr' 'ash-desktop'
+        'wpa_supplicant' 'intel-ucode' 'acpi' 'powertop' 'cdrtools' 'syslinux'
         )
 
 # Files to add
 install=install.sh
 source=('multimedia.conf' # Triggerhappy multimedia key config
+        'video.conf'      # Triggerhappy video switch config
+        'suspend.conf'    # Triggerhappy suspend config
+        'switchvideo.sh'  # Video switcher script.
         '99-backlight.rules' # Udev rules for backlight
+        'logind.conf' # Don't suspend on lid switch
        )
-md5sums=('2d5c3cf973f796109ff6ac57bb0c3479'
-         'f3c0870e81f88af8792b5deea9024415')
+md5sums=('42f34d91cc13b690f905d9013a2c8e5f'
+         '05021a36bf42099238fafaa669dbf3d9'
+         'c707bfac6c60eeef9f781d01a34678ee'
+         '70036dc4adb2e7d7d11011fe38f0eb91'
+         'f3c0870e81f88af8792b5deea9024415'
+         'd96b810d39d5fbc33ee0522601b40fd5')
 backup=("etc/triggerhappy/multimedia.conf")
 
 package() {
     cd "${srcdir}"
 
-    # Add the multimedia key config
-    install -Dm0644 "${srcdir}/multimedia.conf" \
-        "${pkgdir}/etc/triggerhappy/multimedia.conf"
+    # Add the triggerhappy configs.
+    for f in multimedia video suspend; do
+        install -Dm0644 "${srcdir}/${f}.conf" \
+            "${pkgdir}/etc/triggerhappy/${f}.conf"
+    done
+
+    # Add the video switcher script.
+    install -Dm0755 "${srcdir}/switchvideo.sh" \
+        "${pkgdir}/usr/bin/switchvideo"
 
     # Enable the services
     SERVICES="triggerhappy"
@@ -42,4 +56,9 @@ package() {
     # Fix the backlight.
     install -Dm0644 "99-backlight.rules" \
         "${pkgdir}/usr/lib/udev/rules.d/99-backlight.rules"
+
+    # Add the patch for the lid switch.
+    mkdir -p "${pkgdir}/var/lib/patchman/etc/systemd/"
+    install -Dm0644 "logind.conf" \
+        "${pkgdir}/var/lib/patchman/etc/systemd/logind.conf/lid.patch"
 }
