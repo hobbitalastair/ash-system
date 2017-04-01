@@ -1,0 +1,14 @@
+[Unit]
+Description=X-Wing wikia mirror daemon
+
+[Service]
+Type=simple
+Group=nobody
+User=nobody
+ExecStart=/usr/lib/systemd/scripts/wikia.py --ip '' --port 8000 xwing-miniatures.wikia.com
+Restart=always
+RestartSec=10
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target
