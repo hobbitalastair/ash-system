@@ -1,0 +1,5 @@
+# AVR board
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", \
+    MODE:="0666", \
+    SYMLINK+="avr"
+
