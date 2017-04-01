@@ -1,0 +1,2 @@
+# Set the backlight level to 0 - systemd (somehow) stuffs this up.
+SUBSYSTEM=="backlight", ACTION=="add", KERNEL=="acpi_video0", ATTR{brightness}="0"
