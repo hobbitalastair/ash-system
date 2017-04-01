@@ -1,0 +1,8 @@
+# USB powersaving rules.
+
+# Blacklist the kensington mouse...
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="047d", ATTR{idProduct}=="1032", GOTO="power_usb_rules_end"
+
+ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
+
+LABEL="power_usb_rules_end"
