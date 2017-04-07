@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-desktop
-pkgver=0.8
-pkgrel=2
+pkgver=0.9
+pkgrel=1
 pkgdesc="Basic desktop setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -14,9 +14,13 @@ depends=('chromium' 'gnome-themes-standard' 'oxygen-icons' 'pepper-flash'
         'cups' 'ghostscript' 'foo2zjs'
         'rct')
 source=('gtkrc-2'
-        'desktop.sh')
+        'desktop.sh'
+        'slock@.service'
+        'slock-xorg.conf')
 md5sums=('050d0a2ed0ecb66bea06db9692bfc549'
-         'a58f90c5db213979878b0663eb61e2a7')
+         'a58f90c5db213979878b0663eb61e2a7'
+         '1dcb7fe86db8c8e5a7b7b9c181ffc5fc'
+         '12bc8dbe762383f5b785720f6ed3044c')
 
 package() {
     cd "${srcdir}"
@@ -26,6 +30,17 @@ package() {
 
     # Desktop profile.
     install -Dm0644 "${srcdir}/desktop.sh" "${pkgdir}/etc/profile.d/desktop.sh"
+
+    # Slock service.
+    install -Dm0644 "slock@.service" \
+        "${pkgdir}/usr/lib/systemd/system/slock@.service"
+    # Enable the service for ash.
+    mkdir -p "${pkgdir}/etc/systemd/system/sleep.target.wants"
+    ln -s "/usr/lib/systemd/system/slock@.service" \
+      "${pkgdir}/etc/systemd/system/sleep.target.wants/slock@ash.service"
+    # Stop the user from killing the x server.
+    install -Dm0644 "slock-xorg.conf" \
+        "${pkgdir}/usr/share/X11/xorg.conf.d/50-slock.conf"
 
     # Set the default papersize.
     mkdir -p "${pkgdir}/var/lib/patchman/etc/"
