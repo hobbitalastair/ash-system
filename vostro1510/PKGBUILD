@@ -21,7 +21,7 @@ source=('multimedia.conf' # Triggerhappy multimedia key config
        )
 md5sums=('42f34d91cc13b690f905d9013a2c8e5f'
          '05021a36bf42099238fafaa669dbf3d9'
-         'c707bfac6c60eeef9f781d01a34678ee'
+         '2a1f76aee7572192189139f943d4734e'
          '70036dc4adb2e7d7d11011fe38f0eb91'
          'f3c0870e81f88af8792b5deea9024415'
          'd96b810d39d5fbc33ee0522601b40fd5')
