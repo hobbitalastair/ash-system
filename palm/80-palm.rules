@@ -1,8 +1,0 @@
-# Udev rules to start a coldsync daemon when a certain USB device is plugged
-# in.
-# This makes use of systemd...
-
-SUBSYSTEM=="tty", KERNEL=="ttyUSB[0-9]*", \
-    ATTRS{idVendor}=="0b39", ATTRS{idProduct}=="0421", \
-    TAG+="systemd", ENV{SYSTEMD_WANTS}="coldsync@$env{DEVNAME}" \
-    GROUP="palm"
