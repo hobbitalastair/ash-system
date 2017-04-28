@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-desktop
 pkgver=0.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Basic desktop setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -12,7 +12,7 @@ depends=('chromium' 'gnome-themes-standard' 'oxygen-icons' 'pepper-flash'
         'xorg-server' 'xorg-xinit' 'xclip'
         'tigervnc' 'rdesktop'
         'cups' 'ghostscript' 'foo2zjs'
-        'rct')
+        'rct' 'hedgewars')
 source=('gtkrc-2'
         'desktop.sh'
         'slock@.service'
