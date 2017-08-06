@@ -1,0 +1,2 @@
+# Automatically switch the external display on change events.
+SUBSYSTEM=="drm", ACTION=="change", ENV{HOTPLUG}=="1", RUN+="/usr/bin/switchvideo"
