@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
 pkgver=0.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
 license=('MIT')
@@ -10,10 +10,10 @@ depends=(
          'less'
          'git'
          'openssh'
+         'unison'
          'sudo'
          'keychain'
          'bash-completion'
-         'immix'
          'patchman'
         )
 conflicts=('ash-security')
