@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
-pkgname=framebuffer
-pkgver=0.4
+pkgname=ash-fb
+pkgver=0.5
 pkgrel=1
 pkgdesc="Framebuffer utilities for an Alastair Hughes system"
 arch=('any')
@@ -8,7 +8,7 @@ license=('MIT')
 # Install needed packages
 depends=('fbset' 'fbpdf' 'fbv' # Framebuffer utilities
         'librsvg' # For svg viewing
-        'lynx' 'snownews' 'teapot'
+        'lynx' 'teapot' 'feedutils'
         'alsa-utils'
         'vorbis-tools'
         'hunspell' 'hunspell-en'
