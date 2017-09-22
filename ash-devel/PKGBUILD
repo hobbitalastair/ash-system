@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-devel
-pkgver=0.3
+pkgver=0.4
 pkgrel=1
 pkgdesc="Standard development utils"
 arch=('any')
@@ -12,6 +12,7 @@ depends=('markdown'
         'gnuplot'
         'fakechroot' 'parted' 'qemu-headless' 'qemu-headless-arch-extra'
         'perl-authen-sasl' 'perl-mime-tools' 'perl-net-smtp-ssl' # For git...
+        'perf' 'strace' 'gdb'
         )
 
 package() {
