@@ -1,13 +1,14 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=dx2180
-pkgver=0.2
-pkgrel=2
+pkgver=0.3
+pkgrel=1
 pkgdesc="dx2180-specific configuration"
 arch=('any')
 license=('GPL')
 depends=('cdrtools' 'intel-ucode' 'tinyserial'
         'btrfs-progs' 'syslinux'
         'sane'
+        'duckdns'
         )
 
 # Files to add
@@ -19,4 +20,11 @@ package() {
     # Disable the PC speaker beep
     mkdir -p "${pkgdir}/etc/modprobe.d/"
     printf 'blacklist pcspkr\n' > "${pkgdir}/etc/modprobe.d/nobeep.conf"
+
+    TIMERS="duckdns"
+    mkdir -p "${pkgdir}/etc/systemd/system/timers.target.wants"
+    for TIMER in $TIMERS; do
+        ln -s "/usr/lib/systemd/system/${TIMER}.timer" \
+      "${pkgdir}/etc/systemd/system/timers.target.wants/${TIMER}.timer"
+    done
 }
