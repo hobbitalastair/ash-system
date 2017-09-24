@@ -1,0 +1,48 @@
+# Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
+pkgname=ash-arch
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Base setup for an Alastair Hughes Arch-based system"
+arch=('any')
+license=('MIT')
+depends=(
+         'ash-base'
+         'systemd'
+         'unison'
+        )
+source=(
+        'size.conf'
+        'iptables.rules'
+        'sync@.service'
+        'sync@.timer'
+       )
+md5sums=('372f1f188276ac5881f315169e3c4e12'
+         'e06b9870ca71120a07b7cd3121761d0b'
+         'cbe74524724aa245967ca2778b5ca02f'
+         'bcfaf3be811f380f4f558e245c05ab75')
+
+package() {
+    cd "${srcdir}"
+
+    # Add the new files.
+    install -Dm0644 "size.conf" \
+        "${pkgdir}/etc/systemd/journald.conf.d/size.conf"
+    install -Dm0640 "iptables.rules" "${pkgdir}/etc/iptables/iptables.rules"
+
+    # Add the skel files
+    mkdir -p "${pkgdir}/etc/skel/.config/unison"
+    mkdir -p "${pkgdir}/etc/skel/.local/share/unison/backups"
+
+    # Add the user services.
+    install -Dm0644 "sync@.service" \
+        "${pkgdir}/usr/lib/systemd/user/sync@.service"
+    install -Dm0644 "sync@.timer" "${pkgdir}/usr/lib/systemd/user/sync@.timer"
+
+    # Enable the services
+    SERVICES="sshd dhcpcd systemd-timesyncd iptables"
+    mkdir -p "${pkgdir}/etc/systemd/system/multi-user.target.wants"
+    for SERVICE in $SERVICES; do
+        ln -s "/usr/lib/systemd/system/${SERVICE}.service" \
+      "${pkgdir}/etc/systemd/system/multi-user.target.wants/${SERVICE}.service"
+    done
+}
