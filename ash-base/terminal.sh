@@ -11,6 +11,9 @@ export XDG_CACHE_HOME="$HOME/.cache"
 # Environment variables
 #
 
+export VISUAL="vim"
+export EDITOR="${VISUAL}"
+
 # Application environment variables
 export HISTFILE="$XDG_DATA_HOME/bash.history"
 export LESSHISTFILE="$XDG_DATA_HOME/less.history"
