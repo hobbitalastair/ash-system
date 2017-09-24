@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 
 pkgname=patchman
-pkgver=0.3
+pkgver=0.4
 pkgrel=1
 pkgdesc="Backup file patch helper"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -9,7 +9,7 @@ license=('MIT')
 url="https://github.com/hobbitalastair/${pkgname}/"
 depends=('patch')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-md5sums=('a64031d878b4d1a0b1708e7107d9ce77')
+md5sums=('32ca9373f0a8fc72bf9f9ce8425fbc18')
 
 
 build() {
