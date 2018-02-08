@@ -1,10 +1,10 @@
 # Maintainer: Alastair Hughes < hobbitalastair at yandex dot com>
 
 # Package information
-pkgname='ash-avr'
+pkgname='ash-ucfk4'
 pkgver='1.0'
-pkgrel=1
-pkgdesc="Packages for the UCFK4 avr device"
+pkgrel=2
+pkgdesc="Packages for the UCFK4"
 
 # Additional information...
 arch=('any')
@@ -15,12 +15,12 @@ license=('MIT')
 depends=('avr-gcc' 'avr-libc' 'dfu-programmer')
 
 # Building information
-source=(99-avr.rules)
+source=('99-ucfk4.rules')
 md5sums=('fd024cbdb69dd7c6ba7ec6cb1d9e8d2b')
 
 
 package() {
     cd "${srcdir}"
 
-    install -Dm0644 "99-avr.rules" "${pkgdir}/usr/lib/udev/rules.d/99-avr.rules"
+    install -Dm0644 "99-ucfk4.rules" "${pkgdir}/usr/lib/udev/rules.d/99-ucfk4.rules"
 }
