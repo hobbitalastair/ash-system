@@ -1,0 +1,51 @@
+# Maintainer: Alastair Hughes < hobbitalastair at yandex dot com>
+
+# Package information
+pkgname='ash-feather'
+pkgver='0.1'
+pkgrel=3
+pkgdesc="Adafruit Feather 32u4 support"
+
+# Additional information...
+arch=('any')
+url="https://learn.adafruit.com/adafruit-feather-32u4-basic-proto?view=all"
+license=('MIT')
+
+# Dependency information
+depends=('arduino-builder' 'arduino-avr-core')
+
+# Building information
+source=('adafruit_arduino_boards::git+https://github.com/adafruit/Adafruit_Arduino_Boards'
+        'adafruit_vs1053_library::git+https://github.com/adafruit/Adafruit_VS1053_Library'
+        'arduino_libraries_sd::git+https://github.com/arduino-libraries/SD'
+        'arduino-feather.sh'
+        '99-adafruit.rules')
+md5sums=('SKIP'
+         'SKIP'
+         'SKIP'
+         '2d09c377f1d3fa374a0073b97b3b74c8'
+         'd314734210fb7acd54c7752d1cf39014')
+
+
+prepare() {
+    cd "${srcdir}/adafruit_arduino_boards"
+
+    sed -i boards.txt -e 's/=arduino:/=archlinux-arduino:/'
+}
+
+package() {
+    cd "${srcdir}"
+
+    hardwaredir="${pkgdir}/usr/share/arduino/hardware"
+
+    install -dm0755 "${hardwaredir}/adafruit/avr"
+    cp -r "adafruit_arduino_boards/"* "${hardwaredir}/adafruit/avr/"
+    install -dm0755 "${hardwaredir}/adafruit/avr/libraries"
+    cp -r "adafruit_vs1053_library" "${hardwaredir}/adafruit/avr/libraries"
+    install -dm0755 "${hardwaredir}/archlinux-arduino/avr/libraries"
+    cp -r "arduino_libraries_sd" "${hardwaredir}/archlinux-arduino/avr/libraries"
+
+    install -Dm0755 'arduino-feather.sh' "${pkgdir}/usr/bin/arduino-feather"
+
+    install -Dm0644 "99-adafruit.rules" "${pkgdir}/usr/lib/udev/rules.d/99-adafruit.rules"
+}

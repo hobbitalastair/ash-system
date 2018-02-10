@@ -1,0 +1,3 @@
+# Adafruit Feather 32u4
+ATTRS{idVendor}=="239a", ATTRS{idProduct}=="000c", SYMLINK+="arduino/feather", MODE="0666"
+ATTRS{idVendor}=="239a", ATTRS{idProduct}=="800c", SYMLINK+="arduino/feather", MODE="0666"
