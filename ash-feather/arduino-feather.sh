@@ -1,19 +1,8 @@
 #!/usr/bin/bash
 # Wrapper for arduino-builder to simplify dealing with Feather boards
 
-for arg in "$@"; do
-    if [ "${arg##*.}" == "ino" ]; then
-        ino="${arg}"
-    fi
-done
-if [ -z "${ino}" ]; then
-    printf "%s: no ardunio sketch (.ino) detected on the command line\n" "$0" 1>&2
-fi
-
-build_path="/run/user/$(id -u)/arduino-build-${arg%.*}"
-if [ ! -d "${build_path}" ]; then
-    mkdir -p "${build_path}" || exit 1
-fi
+build_path="$(mktemp --tmpdir="${TMPDIR:-/tmp}" -d "arduino-build-XXXX")" || exit 1
+trap "rm -rf '${build_path}'" EXIT
 
 arduino-builder \
     -fqbn adafruit:avr:feather32u4 \
@@ -21,6 +10,7 @@ arduino-builder \
     -tools /usr/bin \
     -warnings all \
     -build-path "${build_path}" \
+    *.ino \
     "$@" \
     || exit "$?"
 
@@ -33,8 +23,8 @@ avrdude \
     -b57600 \
     -D \
     -v \
-    "-Uflash:w:${build_path}/${ino}.hex:i" \
+    "-Uflash:w:$(printf '%s' "${build_path}"/*.ino.hex):i" \
     || exit "$?"
 
-sleep 3
+sleep 2
 stty -F /dev/ttyACM0 cs8 115200 ignbrk -brkint -imaxbel -opost -onlcr -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke noflsh -ixon -crtscts
