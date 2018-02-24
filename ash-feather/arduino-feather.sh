@@ -10,8 +10,8 @@ arduino-builder \
     -tools /usr/bin \
     -warnings all \
     -build-path "${build_path}" \
-    *.ino \
     "$@" \
+    *.ino \
     || exit "$?"
 
 printf "%s: writing to feather in 3\n" "$0"

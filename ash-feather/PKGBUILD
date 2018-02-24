@@ -3,7 +3,7 @@
 # Package information
 pkgname='ash-feather'
 pkgver='0.1'
-pkgrel=4
+pkgrel=5
 pkgdesc="Adafruit Feather 32u4 support"
 
 # Additional information...
@@ -23,7 +23,7 @@ source=('adafruit_arduino_boards::git+https://github.com/adafruit/Adafruit_Ardui
 md5sums=('SKIP'
          'SKIP'
          'SKIP'
-         'af02ba6b3cb1b6cb457a22fda8388467'
+         '29145c60daf78ac7c6c174d728ffc522'
          'd314734210fb7acd54c7752d1cf39014')
 
 
