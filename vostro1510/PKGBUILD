@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=vostro1510
-pkgver=0.1.6
+pkgver=0.1.7
 pkgrel=1
 pkgdesc="Vostro 1510-specific configuration"
 arch=('any')
@@ -23,7 +23,7 @@ source=('multimedia.conf' # Triggerhappy multimedia key config
 md5sums=('42f34d91cc13b690f905d9013a2c8e5f'
          '05021a36bf42099238fafaa669dbf3d9'
          '2a1f76aee7572192189139f943d4734e'
-         '70036dc4adb2e7d7d11011fe38f0eb91'
+         'e4421e6746a9940db485bbab471ceea8'
          'f3c0870e81f88af8792b5deea9024415'
          '0b66e4b122d2162e9b7d91753fd0a08a'
          'd96b810d39d5fbc33ee0522601b40fd5')

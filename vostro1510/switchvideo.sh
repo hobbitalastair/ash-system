@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
-intern='LVDS1'
-extern='VGA1'
+intern='LVDS-1'
+extern='VGA-1'
 
 export DISPLAY=:0.0
 export XAUTHORITY=/home/ash/.cache/xauthority
