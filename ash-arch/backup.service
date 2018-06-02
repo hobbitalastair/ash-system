@@ -1,0 +1,15 @@
+[Unit]
+Description=Automatic file backup
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/sh -c 'PATH="$HOME/.local/bin:${PATH}" tarsnap-snapshot'
+Nice=19
+IOSchedulingClass=idle
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
+

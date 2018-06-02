@@ -1,25 +1,32 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-arch
-pkgver=0.1.0
-pkgrel=1
+pkgver=0.2
+pkgrel=2
 pkgdesc="Base setup for an Alastair Hughes Arch-based system"
 arch=('any')
 license=('MIT')
 depends=(
          'ash-base'
          'systemd'
-         'unison'
         )
+optdepends=(
+    'tarsnap: for backups'
+    'unison-248-compat: for sync'
+)
 source=(
         'size.conf'
         'iptables.rules'
         'sync@.service'
         'sync@.timer'
+        'backup.service'
+        'backup.timer'
        )
 md5sums=('372f1f188276ac5881f315169e3c4e12'
          'e06b9870ca71120a07b7cd3121761d0b'
-         'cbe74524724aa245967ca2778b5ca02f'
-         'bcfaf3be811f380f4f558e245c05ab75')
+         '52bc8e5123601c84c7374ee162624332'
+         'bcfaf3be811f380f4f558e245c05ab75'
+         'e619136c89fd9f4ffa73186e0ef45d10'
+         '6a56fc8232e8498f45a59f04de76fba3')
 
 package() {
     cd "${srcdir}"
@@ -37,6 +44,9 @@ package() {
     install -Dm0644 "sync@.service" \
         "${pkgdir}/usr/lib/systemd/user/sync@.service"
     install -Dm0644 "sync@.timer" "${pkgdir}/usr/lib/systemd/user/sync@.timer"
+    install -Dm0644 "backup.service" \
+        "${pkgdir}/usr/lib/systemd/user/backup.service"
+    install -Dm0644 "backup.timer" "${pkgdir}/usr/lib/systemd/user/backup.timer"
 
     # Enable the services
     SERVICES="sshd dhcpcd systemd-timesyncd iptables"

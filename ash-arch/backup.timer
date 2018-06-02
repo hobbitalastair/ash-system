@@ -1,0 +1,10 @@
+[Unit]
+Description="Timer for automatic backup"
+
+[Timer]
+Unit=backup.service
+OnBootSec=20m
+OnUnitInactiveSec=1d
+
+[Install]
+WantedBy=timers.target
