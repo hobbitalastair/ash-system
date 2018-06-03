@@ -1,13 +1,12 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-devel
-pkgver=0.4
+pkgver=0.5
 pkgrel=1
 pkgdesc="Standard development utils"
 arch=('any')
 license=('MIT')
 # Install needed packages
 depends=('markdown'
-        'go'
         'ht'
         'gnuplot'
         'fakechroot' 'parted' 'qemu-headless' 'qemu-headless-arch-extra'
