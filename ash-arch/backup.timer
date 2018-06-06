@@ -4,7 +4,8 @@ Description="Timer for automatic backup"
 [Timer]
 Unit=backup.service
 OnBootSec=20m
-OnUnitInactiveSec=1d
+OnCalendar=00:00
+Persistent=true
 
 [Install]
 WantedBy=timers.target

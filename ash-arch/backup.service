@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/sh -c 'PATH="$HOME/.local/bin:${PATH}" tarsnap-snapshot'
+ExecStart=/usr/bin/sh -c 'sleep 60; PATH="$HOME/.local/bin:${PATH}" tarsnap-snapshot'
 Nice=19
 IOSchedulingClass=idle
 StandardOutput=journal
