@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-arch
-pkgver=0.4
+pkgver=0.5
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes Arch-based system"
 arch=('any')
@@ -22,7 +22,7 @@ source=(
         'backup.timer'
        )
 md5sums=('372f1f188276ac5881f315169e3c4e12'
-         'e06b9870ca71120a07b7cd3121761d0b'
+         '9e39c0410536213390e4c2da3ed520c0'
          '52bc8e5123601c84c7374ee162624332'
          'bcfaf3be811f380f4f558e245c05ab75'
          '2ab318f27d4fb2e7f5311d3d5943e602'

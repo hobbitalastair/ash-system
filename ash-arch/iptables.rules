@@ -42,7 +42,7 @@
 
 # TCP and UDP rules
 # --dport not working
--A TCP -p tcp -s 10.0.1.0/24 -j ACCEPT
+-A TCP -p tcp -s 192.168.1.0/24 -j ACCEPT
 -A UDP -j REJECT
 
 COMMIT
