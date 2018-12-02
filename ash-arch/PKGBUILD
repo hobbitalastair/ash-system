@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-arch
-pkgver=0.5
+pkgver=0.6
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes Arch-based system"
 arch=('any')
@@ -15,14 +15,12 @@ optdepends=(
 )
 source=(
         'size.conf'
-        'iptables.rules'
         'sync@.service'
         'sync@.timer'
         'backup.service'
         'backup.timer'
        )
 md5sums=('372f1f188276ac5881f315169e3c4e12'
-         '9e39c0410536213390e4c2da3ed520c0'
          '52bc8e5123601c84c7374ee162624332'
          'bcfaf3be811f380f4f558e245c05ab75'
          '2ab318f27d4fb2e7f5311d3d5943e602'
@@ -34,7 +32,6 @@ package() {
     # Add the new files.
     install -Dm0644 "size.conf" \
         "${pkgdir}/etc/systemd/journald.conf.d/size.conf"
-    install -Dm0640 "iptables.rules" "${pkgdir}/etc/iptables/iptables.rules"
 
     # Add the skel files
     mkdir -p "${pkgdir}/etc/skel/.config/unison"
@@ -49,7 +46,7 @@ package() {
     install -Dm0644 "backup.timer" "${pkgdir}/usr/lib/systemd/user/backup.timer"
 
     # Enable the services
-    SERVICES="sshd dhcpcd systemd-timesyncd iptables"
+    SERVICES="sshd dhcpcd systemd-timesyncd"
     mkdir -p "${pkgdir}/etc/systemd/system/multi-user.target.wants"
     for SERVICE in $SERVICES; do
         ln -s "/usr/lib/systemd/system/${SERVICE}.service" \
