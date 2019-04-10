@@ -1,0 +1,5 @@
+# Rule for Acatel mobile phone to enable PPP on connection.
+ACTION=="add", KERNEL=="ttyUSB[0-9]", \
+    ATTRS{idVendor}=="0e8d", ATTRS{idProduct}=="0023", \
+    SYMLINK="phone", TAG+="systemd", \
+    ENV{SYSTEMD_WANTS}="ppp@mobile.service"

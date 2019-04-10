@@ -1,0 +1,43 @@
+# Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
+pkgname=phone
+pkgver=0.1
+pkgrel=1
+pkgdesc="Phone 3G tethering/SMS setup"
+arch=('any')
+license=('MIT')
+depends=(
+         'ppp'
+         'gnokii-git'
+         'patchman'
+        )
+source=(
+        'pap-secrets'
+        'mobile'
+        'mobile-modem.chat'
+        'options-mobile'
+        '99-phone.rules'
+       )
+md5sums=('4042d1bfbbdcf218bcd43749270d86e3'
+         '5cdfd48727090d5dc39dbf02a27605ff'
+         'c48c957a7dcee44475f87def1db22c87'
+         'f0e2d52c7758732b6936da58b5f308fa'
+         'deb7c939e80ae5e8654a1aba7d9f47b2')
+
+package() {
+    cd "${srcdir}"
+
+    # Install the default patches - these need to be applied manually.
+    patchpath="${pkgdir}/var/lib/patchman"
+    install -Dm0644 "pap-secrets" "${patchpath}/etc/ppp/pap-secrets"
+
+    # Install the ppp configuration.
+    install -Dm0644 "options-mobile" "${pkgdir}/etc/ppp/options-mobile"
+    install -Dm0644 "mobile" "${pkgdir}/etc/ppp/peers/mobile"
+    install -Dm0644 "mobile-modem.chat" \
+        "${pkgdir}/etc/ppp/chatscripts/mobile-modem.chat"
+    ln -s mobile "${pkgdir}/etc/ppp/peers/provider"
+
+    # Add a udev rule to enable ppp when the phone is plugged in.
+    install -Dm0644 "99-phone.rules" \
+        "${pkgdir}/usr/lib/udev/rules.d/99-phone.rules"
+}

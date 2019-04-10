@@ -1,0 +1,2 @@
+file /etc/ppp/options-mobile
+connect "/usr/bin/chat -v -t15 -f /etc/ppp/chatscripts/mobile-modem.chat"
