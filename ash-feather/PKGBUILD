@@ -2,8 +2,8 @@
 
 # Package information
 pkgname='ash-feather'
-pkgver='0.1'
-pkgrel=5
+pkgver='0.2'
+pkgrel=1
 pkgdesc="Adafruit Feather 32u4 support"
 
 # Additional information...
@@ -18,9 +18,11 @@ depends=('arduino-builder' 'arduino-avr-core')
 source=('adafruit_arduino_boards::git+https://github.com/adafruit/Adafruit_Arduino_Boards'
         'adafruit_vs1053_library::git+https://github.com/adafruit/Adafruit_VS1053_Library'
         'arduino_libraries_sd::git+https://github.com/arduino-libraries/SD'
+        'sdfat::git+https://github.com/greiman/SdFat'
         'arduino-feather.sh'
         '99-adafruit.rules')
 md5sums=('SKIP'
+         'SKIP'
          'SKIP'
          'SKIP'
          '29145c60daf78ac7c6c174d728ffc522'
@@ -44,6 +46,7 @@ package() {
     cp -r "adafruit_vs1053_library" "${hardwaredir}/adafruit/avr/libraries"
     install -dm0755 "${hardwaredir}/archlinux-arduino/avr/libraries"
     cp -r "arduino_libraries_sd" "${hardwaredir}/archlinux-arduino/avr/libraries"
+    cp -r "sdfat" "${hardwaredir}/archlinux-arduino/avr/libraries"
 
     install -Dm0755 'arduino-feather.sh' "${pkgdir}/usr/bin/arduino-feather"
 
