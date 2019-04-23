@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
-pkgname=phone
-pkgver=0.1
+pkgname=ash-phone
+pkgver=0.2
 pkgrel=1
 pkgdesc="Phone 3G tethering/SMS setup"
 arch=('any')
@@ -21,7 +21,7 @@ md5sums=('4042d1bfbbdcf218bcd43749270d86e3'
          '5cdfd48727090d5dc39dbf02a27605ff'
          'c48c957a7dcee44475f87def1db22c87'
          'f0e2d52c7758732b6936da58b5f308fa'
-         'deb7c939e80ae5e8654a1aba7d9f47b2')
+         '4942ad73be3eb6a8a213d565a7948c45')
 
 package() {
     cd "${srcdir}"
