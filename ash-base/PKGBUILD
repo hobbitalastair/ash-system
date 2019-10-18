@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.6.2
+pkgver=0.6.3
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
@@ -27,7 +27,7 @@ source=(
         'startup.py'
        )
 md5sums=('29bcdc481ca6cffd349b83dea9eb88f8'
-         '6e837e18b769c5a0fb0455013a6d07cf'
+         '9da6dec483235ccf81b91e386f49c8c5'
          '3d111c66c4fb73ecdf70ce03aafba195'
          'd40be3b76df1ebf3061c170c20fd4f6e'
          'd8aaa6747466adea7e6995041a9d3139'
