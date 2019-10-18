@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=vostro1510
-pkgver=0.1.7
+pkgver=0.1.8
 pkgrel=1
 pkgdesc="Vostro 1510-specific configuration"
 arch=('any')
@@ -19,6 +19,7 @@ source=('multimedia.conf' # Triggerhappy multimedia key config
         '99-backlight.rules' # Udev rules for backlight
         '99-vga.rules'    # Udev rules for vga input
         'logind.conf'     # Don't suspend on lid switch
+        'mkinitcpio.conf' # Fix i915 modeset with recent systemd
        )
 md5sums=('42f34d91cc13b690f905d9013a2c8e5f'
          '05021a36bf42099238fafaa669dbf3d9'
@@ -26,7 +27,8 @@ md5sums=('42f34d91cc13b690f905d9013a2c8e5f'
          'e4421e6746a9940db485bbab471ceea8'
          'f3c0870e81f88af8792b5deea9024415'
          '0b66e4b122d2162e9b7d91753fd0a08a'
-         'd96b810d39d5fbc33ee0522601b40fd5')
+         'd96b810d39d5fbc33ee0522601b40fd5'
+         '8ec838232567c720c324fdcf152a713e')
 backup=("etc/triggerhappy/multimedia.conf"
         "etc/triggerhappy/video.conf"
         "etc/triggerhappy/suspend.conf")
@@ -69,4 +71,8 @@ package() {
     mkdir -p "${pkgdir}/var/lib/patchman/etc/systemd/"
     install -Dm0644 "logind.conf" \
         "${pkgdir}/var/lib/patchman/etc/systemd/logind.conf/lid.patch"
+
+    # Fix modeset with systemd 243
+    mkdir -p "${pkgdir}/var/lib/patchman/etc"
+    install -Dm0644 "mkinitcpio.conf" "${pkgdir}/var/lib/patchman/etc/mkinitcpio.conf"
 }
