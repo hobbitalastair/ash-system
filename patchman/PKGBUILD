@@ -2,7 +2,7 @@
 
 pkgname=patchman
 pkgver=0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Backup file patch helper"
 arch=('i686' 'i586' 'x86_64' 'armv6h' 'armv7h')
 license=('MIT')
