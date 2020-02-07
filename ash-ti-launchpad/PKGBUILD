@@ -1,0 +1,31 @@
+# Maintainer: Alastair Hughes < hobbitalastair at yandex dot com>
+
+# Package information
+pkgname='ash-ti-launchpad'
+pkgver='1'
+pkgrel=1
+pkgdesc="Packages for the TI Stellaris Launchpad"
+
+# Additional information...
+arch=('any')
+
+# Dependency information
+depends=(
+    'arm-none-eabi-gcc'
+    'arm-none-eabi-gdb'
+    'arm-none-eabi-binutils'
+    'lm4flash'
+    )
+
+# Building information
+source=('99-ti-launchpad.rules')
+md5sums=('ed4bd12161b44de1582d94c1384bd214')
+
+
+package() {
+    cd "${srcdir}"
+
+    install -Dm0644 "99-ti-launchpad.rules" \
+        "${pkgdir}/usr/lib/udev/rules.d/99-ti-launchpad.rules"
+}
+
