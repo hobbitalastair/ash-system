@@ -3,7 +3,7 @@
 # Package information
 pkgname='ash-ti-launchpad'
 pkgver='1'
-pkgrel=1
+pkgrel=2
 pkgdesc="Packages for the TI Stellaris Launchpad"
 
 # Additional information...
@@ -15,6 +15,7 @@ depends=(
     'arm-none-eabi-gdb'
     'arm-none-eabi-binutils'
     'lm4flash'
+    'openocd'
     )
 
 # Building information
