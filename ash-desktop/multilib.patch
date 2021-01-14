@@ -1,0 +1,6 @@
+92,93c92,93
+< #[multilib]
+< #Include = /etc/pacman.d/mirrorlist
+---
+> [multilib]
+> Include = /etc/pacman.d/mirrorlist

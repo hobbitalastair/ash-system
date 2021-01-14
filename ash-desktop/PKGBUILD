@@ -1,7 +1,7 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-desktop
-pkgver=1.1
-pkgrel=2
+pkgver=1.4
+pkgrel=1
 pkgdesc="Basic desktop setup for an Alastair Hughes system"
 arch=('any')
 license=('GPL')
@@ -9,24 +9,26 @@ license=('GPL')
 install=install.sh
 depends=('chromium' 'gnome-themes-standard' 'oxygen-icons' 'pepper-flash'
         'dwm' 'xssstate' 'slock' 'slstatus' 'redshift'
+        'scrot'
         'xorg-server' 'xorg-xinit' 'xclip'
-        'tigervnc' 'rdesktop'
         'cups' 'ghostscript' 'gtk3-print-backends'
-        'inkscape'
         'alsa-utils' 'vorbis-tools'
-        'feedutils'
+        'feedutils' 'webutils'
         'teapot'
         'hunspell' 'hunspell-en_AU'
-        'texlive-core'
-        'rct' 'hedgewars')
+        'texlive-core' 'texlive-moderncv'
+        )
 source=('gtkrc-2'
         'desktop.sh'
         'slock@.service'
-        'slock-xorg.conf')
+        'slock-xorg.conf'
+        'multilib.patch'
+        )
 md5sums=('050d0a2ed0ecb66bea06db9692bfc549'
          'a58f90c5db213979878b0663eb61e2a7'
          '1dcb7fe86db8c8e5a7b7b9c181ffc5fc'
-         '12bc8dbe762383f5b785720f6ed3044c')
+         '12bc8dbe762383f5b785720f6ed3044c'
+         '89de1bcdd219f982b8445c80520d92b3')
 
 package() {
     cd "${srcdir}"
@@ -47,4 +49,9 @@ package() {
     # Stop the user from killing the x server.
     install -Dm0644 "slock-xorg.conf" \
         "${pkgdir}/usr/share/X11/xorg.conf.d/50-slock.conf"
+
+    # Enable multilib
+    patchpath="${pkgdir}/var/lib/patchman"
+    install -Dm0644 "multilib.patch" \
+        "${patchpath}/etc/pacman.conf/multilib.patch"
 }

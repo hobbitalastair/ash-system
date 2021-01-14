@@ -1,0 +1,4 @@
+5a6
+> auth       optional   pam_fscrypt.so
+19a21
+> session    optional   pam_fscrypt.so       drop_caches lock_policies

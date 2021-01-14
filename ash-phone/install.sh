@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 force_update() {
     patchman.sh -r /etc/ppp/pap-secrets
 }

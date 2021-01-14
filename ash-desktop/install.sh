@@ -1,5 +1,7 @@
+#!/usr/bin/env sh
+
 force_update() {
-    patchman.sh -r /etc/papersize
+    patchman.sh -r /etc/pacman.conf
 }
 
 post_install() {

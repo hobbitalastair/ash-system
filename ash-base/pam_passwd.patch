@@ -1,0 +1,5 @@
+4c4,5
+< password	required	pam_unix.so sha512 shadow nullok
+---
+> password	required	pam_unix.so sha512 shadow nullok rounds=1000000
+> password        optional        pam_fscrypt.so

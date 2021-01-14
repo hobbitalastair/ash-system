@@ -1,13 +1,15 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=vostro1510
-pkgver=0.1.8
+pkgver=0.2
 pkgrel=1
 pkgdesc="Vostro 1510-specific configuration"
 arch=('any')
 license=('GPL')
 # Install needed packages
-depends=('powersave' 'triggerhappy-git' 'xorg-xrandr' 'ash-desktop'
-        'wpa_supplicant' 'intel-ucode' 'acpi' 'powertop' 'cdrtools' 'syslinux'
+depends=(
+         'powersave' 'triggerhappy-git' 'xorg-xrandr'
+         'wpa_supplicant' 'intel-ucode' 'acpi' 'powertop' 'cdrtools'
+         'syslinux' 'linux' 'linux-firmware'
         )
 
 # Files to add
