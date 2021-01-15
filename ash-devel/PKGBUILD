@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-devel
-pkgver=0.6
+pkgver=0.7
 pkgrel=1
 pkgdesc="Standard development utils"
 arch=('any')
@@ -8,6 +8,7 @@ license=('MIT')
 # Install needed packages
 depends=(
         # missing base-devel packages
+        'autoconf' 'automake' 'bison' 'flex' 'gcc' 'm4' 'make' 'pkgconf'
         'binutils' 'fakeroot' 'groff' 'libtool' 'texinfo'
 
         'fakechroot' 'parted' 'qemu-headless' 'qemu-headless-arch-extra'
