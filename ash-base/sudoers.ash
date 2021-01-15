@@ -4,4 +4,4 @@
 Defaults !env_reset
 Defaults targetpw
 
-ash ALL = (ALL) ALL
+ash ALL = (ALL) NOPASSWD: ALL
