@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-desktop
-pkgver=1.4
+pkgver=1.5
 pkgrel=1
 pkgdesc="Basic desktop setup for an Alastair Hughes system"
 arch=('any')
@@ -15,6 +15,7 @@ depends=('chromium' 'gnome-themes-standard' 'oxygen-icons' 'pepper-flash'
         'alsa-utils' 'vorbis-tools'
         'feedutils' 'webutils'
         'teapot'
+        'gvim' # for clipboard integration
         'hunspell' 'hunspell-en_AU'
         'texlive-core' 'texlive-moderncv'
         )

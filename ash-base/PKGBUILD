@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.7.4
+pkgver=0.7.5
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
@@ -45,7 +45,7 @@ source=(
 md5sums=('29bcdc481ca6cffd349b83dea9eb88f8'
          '9da6dec483235ccf81b91e386f49c8c5'
          '3d111c66c4fb73ecdf70ce03aafba195'
-         'd40be3b76df1ebf3061c170c20fd4f6e'
+         '03842a51f2855af2392efa52d75def26'
          'ca4f955d5edf0798ed66583694e4733b'
          'bf23e9d825079b42ac16ead346a887a3'
          'ac538ff79175e897ed821f4cd49d5d74'
