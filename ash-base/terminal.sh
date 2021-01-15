@@ -18,9 +18,6 @@ export EDITOR="${VISUAL}"
 export HISTFILE="$XDG_DATA_HOME/bash.history"
 export LESSHISTFILE="$XDG_DATA_HOME/less.history"
 
-export UNISON="${XDG_CONFIG_HOME}/unison"
-export UNISONBACKUPDIR="${XDG_DATA_HOME}/unison/backups"
-
 export INPUTRC="${XDG_CONFIG_HOME}/input.conf"
 
 # Lynx config.
@@ -50,17 +47,6 @@ export WINEARCH="win32"
 #
 # Programs
 #
-
-# Start the keychain at login.
-keylist=""
-for id in "${XDG_CONFIG_HOME}/ssh/"*.pub; do
-    if [ -f "${id}" ]; then
-        # We have a key file!
-        keylist+=" ${id%.pub}"
-    fi
-done
-eval "$(keychain --eval --dir "${XDG_CONFIG_HOME}/keychain" \
-    --agents ssh -Q -q ${keylist})"
 
 # Add my own colors
 [ -r "${XDG_CONFIG_HOME}/dircolours.conf" ] && \
