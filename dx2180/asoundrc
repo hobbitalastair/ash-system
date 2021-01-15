@@ -1,0 +1,3 @@
+defaults.pcm.!card "Intel"
+defaults.ctl.!card "Intel"
+defaults.capture.!card "U0x46d0x825"
