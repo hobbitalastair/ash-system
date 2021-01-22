@@ -1,10 +1,7 @@
-5a6
-> auth       optional   pam_fscrypt.so
-19a21
-> session    optional   pam_fscrypt.so       drop_caches lock_policies
 5a6,7
 > auth       optional   pam_fscrypt.so
-> auth       optional   pam_gnupg.so         store-only no-autostart
-19a22,23
+> auth       optional   pam_gnupg.so        store-only
+17a20
 > session    optional   pam_fscrypt.so       drop_caches lock_policies
-> session    optional   pam_gnupg.so
+19a23
+> session    optional   pam_gnupg.so         no-autostart
