@@ -6,6 +6,7 @@ force_update() {
     patchman.sh -r /etc/ssh/sshd_config
     patchman.sh -r /etc/pam.d/system-login
     patchman.sh -r /etc/pam.d/passwd
+    patchman.sh -r /etc/security/pam_env.conf
 }
 
 post_install() {

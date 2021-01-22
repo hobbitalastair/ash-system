@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.7.5
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
@@ -23,6 +23,8 @@ depends=(
          'patch'
 
          'fscrypt'
+         'pass'
+         'pam-gnupg'
 
          'openssh'
          'tarsnap'
@@ -41,19 +43,21 @@ source=(
         'backup.timer'
         'pam_system_login.patch'
         'pam_passwd.patch'
+        'pam_env.conf'
        )
 md5sums=('29bcdc481ca6cffd349b83dea9eb88f8'
          '9da6dec483235ccf81b91e386f49c8c5'
          '3d111c66c4fb73ecdf70ce03aafba195'
          '03842a51f2855af2392efa52d75def26'
-         'ca4f955d5edf0798ed66583694e4733b'
-         'bf23e9d825079b42ac16ead346a887a3'
+         '7f84c64499e064dba72276a8e09a1b91'
+         '377d9dee27f79db8ca3980e76a3e4c05'
          'ac538ff79175e897ed821f4cd49d5d74'
          '372f1f188276ac5881f315169e3c4e12'
          '2ab318f27d4fb2e7f5311d3d5943e602'
          '761c19166a0e2e17f146ee95506f009e'
-         '816f6623803986e097b52f7ab2dd632d'
-         '0a7d8310c4aa31c37a7a1c043e43601b')
+         'e4fe064708eaee2294e8381846ec8f27'
+         '0a7d8310c4aa31c37a7a1c043e43601b'
+         '007d320b689eb942575d4dafbb824df2')
 
 package() {
     cd "${srcdir}"
@@ -65,9 +69,11 @@ package() {
     install -Dm0644 "sshd_config.patch" \
         "${patchpath}/etc/ssh/sshd_config/auth.patch"
     install -Dm0644 "pam_system_login.patch" \
-        "${patchpath}/etc/pam.d/system-login/fscrypt.patch"
+        "${patchpath}/etc/pam.d/system-login/auth.patch"
     install -Dm0644 "pam_passwd.patch" \
         "${patchpath}/etc/pam.d/passwd/fscrypt.patch"
+    install -Dm0644 "pam_env.conf" \
+        "${patchpath}/etc/security/pam_env.conf"
 
     # Add the IGNORE flags for some files.
     for f in etc/fstab etc/passwd etc/shadow etc/group etc/gshadow \
