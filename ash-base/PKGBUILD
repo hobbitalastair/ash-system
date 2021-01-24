@@ -1,6 +1,6 @@
 # Maintainer: Alastair Hughes <hobbitalastair@gmail.com>
 pkgname=ash-base
-pkgver=0.8.1
+pkgver=0.8.3
 pkgrel=1
 pkgdesc="Base setup for an Alastair Hughes system"
 arch=('any')
@@ -21,6 +21,7 @@ depends=(
          'pacman-contrib'
          'which'
          'patch'
+         'nftables'
 
          'fscrypt'
          'pass'
@@ -57,7 +58,7 @@ md5sums=('29bcdc481ca6cffd349b83dea9eb88f8'
          '761c19166a0e2e17f146ee95506f009e'
          'cfa9a9df080e9170240134a1e2b5382b'
          '0a7d8310c4aa31c37a7a1c043e43601b'
-         '007d320b689eb942575d4dafbb824df2')
+         'dfc69d0dda7a09ba1ef2bc4550322b56')
 
 package() {
     cd "${srcdir}"
